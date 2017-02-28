@@ -87,8 +87,6 @@ var flexboxStyle = function (opts, skin) {
       break;
   }
 
-  console.log(color)
-
   return {
     PanelWrapper: {
       config: {

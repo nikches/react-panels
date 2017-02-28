@@ -71,11 +71,11 @@ var TabGroup = React.createClass({
   handleDragStart: function(e) {
     if (this.ctx.sortable) {
 
-      var node = ReactDOM.findDOMNode(this),
-        tabWidth = node.offsetWidth / this.tabKeys.length,
-        distance = e.pageX - node.getBoundingClientRect().left,
-        index = parseInt(distance / tabWidth),
-        targetKey = this.tabKeys[index] || false;
+      var node = ReactDOM.findDOMNode(this);
+      var tabWidth = node.offsetWidth / this.tabKeys.length;
+      var distance = e.pageX - node.getBoundingClientRect().left;
+      var index = parseInt(distance / tabWidth);
+      var targetKey = this.tabKeys[index] || false;
 
       if (targetKey !== false) {
         var tabComponent = this.refs[targetKey + "-tabbref"] || false;
@@ -155,6 +155,7 @@ var TabGroup = React.createClass({
 
   /* Should be used by opts.cloakInGroup once implemented. */
   cloneTabComponent: function (e) {
+    /*
     var tabComponent = this.refs[(this.tabKeys[index] || false) + "-tabbref"] || false;
     if (tabComponent !== false) {
       this.ctx.draggedElement = React.cloneElement(tabComponent.render(), {
@@ -163,6 +164,7 @@ var TabGroup = React.createClass({
         onMouseLeave: false
       });
     }
+    */
   },
 
   createTabElement: function (tabKey) {
