@@ -177,7 +177,7 @@ var TabGroup = React.createClass({
     var tabProps = this.props.data[this.constKeyMap.indexOf(tabKey)] || false;
 
     return (tabProps === false) ? null : React.createElement(
-      TabButton, React.__spread(tabProps, {ref: tabKey + "-tabbref"})
+      TabButton, Object.assign({}, tabProps, {ref: tabKey + "-tabbref"})
     );
   },
 
@@ -204,7 +204,7 @@ var TabGroup = React.createClass({
     }.bind(this));
 
     return (
-      React.createElement(tp.transitionComponent, React.__spread({component: "ul",
+      React.createElement(tp.transitionComponent, Object.assign({}, {component: "ul",
           style: this.props.style, transitionName: tp.transitionName,
           transitionAppear: tp.transitionAppear, transitionEnter: tp.transitionEnter,
           transitionLeave: tp.transitionLeave}, tp.transitionCustomProps, sp),
@@ -264,7 +264,7 @@ var TabButton = React.createClass({
     }
 
     return (
-      React.createElement("li", React.__spread({
+      React.createElement("li", Object.assign({}, {
             onClick: this.handleClick,
             style: sheet.style,
             "data-index": this.props["data-index"],
@@ -371,7 +371,7 @@ var Tab = React.createClass({
 
     this.mounted = (this.mounted || false) || this.props.automount || active;
     this.hasToolbar=this.hasFooter=false;
-    
+
     var innerContent = (this.mounted) ? React.Children.map(self.props.children, function(child, i) {
       var type = (i == 0 && numChilds >= 2) ? 0 : 1;   // 0: Toolbar, 1: Content, 2: Footer
       if (React.isValidElement(child) && (typeof child.props.panelComponentType !== "undefined")) {
@@ -430,7 +430,7 @@ var Tab = React.createClass({
     }.bind(this)) : null;
 
     return (
-      React.createElement(tp.transitionComponent, React.__spread({component: "div", style: sheet.style,
+      React.createElement(tp.transitionComponent, Object.assign({}, {component: "div", style: sheet.style,
             transitionName: tp.transitionName, transitionAppear: tp.transitionAppear && active,
             transitionEnter: tp.transitionEnter && active, transitionLeave: tp.transitionLeave && active},
           tp.transitionCustomProps),

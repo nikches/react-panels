@@ -5,6 +5,33 @@ var flexboxStyle = function (opts, skin) {
   skin = skin || opts.skin;
 
   switch (skin) {
+    case "material-ui":
+      colors = {
+        activeButtonBackgroundColor: "#00bcd4",
+        activeButtonColor: "#f72121",
+        activeTabBackgroundColor: "#2e2e2e",
+        activeTabColor: "#f72121",
+        activeTabTextShadow: "#000000",
+        buttonBackgroundColor: "#202020",
+        buttonColor: "#eaeaea",
+        buttonTextShadow: "#7F7F7F",
+        contentBackgroundColor: "#ffffff",
+        footerBackgroundColor: "#ffffff",
+        hoverButtonBackgroundColor: "#342828",
+        hoverButtonColor: "#ffffff",
+        hoverTabBackgroundColor: "#342828",
+        iconColor: "#ffffff",
+        iconTextShadow: "#000000",
+        tabBackgroundColor: "#202020",
+        tabColor: "#b0b0b0",
+        tabIconColor: "#616161",
+        tabTextShadow: "#000000",
+        titleColor: "#ffffff",
+        titleTextShadow: "#a6a6a6",
+        toolbarBackgroundColor: "#00bcd4",
+      };
+      break;
+
     case "fiery":
       colors = {
         tabColor: "#b0b0b0",
@@ -59,6 +86,8 @@ var flexboxStyle = function (opts, skin) {
       };
       break;
   }
+
+  console.log(color)
 
   return {
     PanelWrapper: {

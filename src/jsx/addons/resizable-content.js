@@ -90,10 +90,11 @@ var ResizableContent = React.createClass({
   },
 
   render: function() {
-    var props = React.addons.update(this.props, {$merge: {
+    var props = update(this.props, {$merge: {
       onScroll: this.onScroll,
       ref: 'resizable'
     }});
+
     props.style = props.style || {};
     props.style.width = props.style.height = "100%";
     props.style.display = "block";
