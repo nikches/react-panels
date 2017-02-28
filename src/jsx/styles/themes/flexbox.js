@@ -1,33 +1,35 @@
 
 var flexboxStyle = function (opts, skin) {
-  var colors,
-    isSafari = /Safari/.test(window.navigator.userAgent) && /Apple Computer/.test(window.navigator.vendor);
-  skin = skin || opts.skin;
+  var colors;
+  var isSafari = /Safari/.test(window.navigator.userAgent) && /Apple Computer/.test(window.navigator.vendor);
+  var skin = skin || opts.skin;
 
   switch (skin) {
     case "material-ui":
       colors = {
         activeButtonBackgroundColor: "#00bcd4",
         activeButtonColor: "#f72121",
-        activeTabBackgroundColor: "#2e2e2e",
-        activeTabColor: "#f72121",
-        activeTabTextShadow: "#000000",
-        buttonBackgroundColor: "#202020",
+        activeTabBackgroundColor: "#00bcd4",
+        activeTabColor: "#ffffff",
+        activeTabTextShadow: "initial",
+        activeTabUnderlineColor: "#ff5722",
+        buttonBackgroundColor: "#00bcd4",
         buttonColor: "#eaeaea",
-        buttonTextShadow: "#7F7F7F",
+        buttonTextShadow: "initial",
         contentBackgroundColor: "#ffffff",
         footerBackgroundColor: "#ffffff",
-        hoverButtonBackgroundColor: "#342828",
+        hoverButtonBackgroundColor: "#00bcd4",
         hoverButtonColor: "#ffffff",
-        hoverTabBackgroundColor: "#342828",
+        hoverTabBackgroundColor: "#00bcd4",
         iconColor: "#ffffff",
-        iconTextShadow: "#000000",
-        tabBackgroundColor: "#202020",
-        tabColor: "#b0b0b0",
+        iconTextShadow: "initial",
+        tabBackgroundColor: "#00bcd4",
+        tabColor: "#ffffff",
         tabIconColor: "#616161",
-        tabTextShadow: "#000000",
+        tabTextShadow: "initial",
+        tabUnderlineColor: "#00bcd4",
         titleColor: "#ffffff",
-        titleTextShadow: "#a6a6a6",
+        titleTextShadow: "initial",
         toolbarBackgroundColor: "#00bcd4",
       };
       break;
@@ -55,7 +57,9 @@ var flexboxStyle = function (opts, skin) {
         hoverTabBackgroundColor: "#342828",
         toolbarBackgroundColor: "#4d2c2c",
         contentBackgroundColor: "#3e3e3e",
-        footerBackgroundColor: "#4e4e4e"
+        footerBackgroundColor: "#4e4e4e",
+        activeTabUnderlineColor: "#ffffff",
+        tabUnderlineColor: "#000000",
       };
       break;
 
@@ -82,7 +86,9 @@ var flexboxStyle = function (opts, skin) {
         hoverTabBackgroundColor: "#2a2a2a",
         toolbarBackgroundColor: "#4e4e4e",
         contentBackgroundColor: "#3e3e3e",
-        footerBackgroundColor: "#4e4e4e"
+        footerBackgroundColor: "#4e4e4e",
+        activeTabUnderlineColor: "#ffffff",
+        tabUnderlineColor: "#000000",
       };
       break;
   }
@@ -95,8 +101,9 @@ var flexboxStyle = function (opts, skin) {
     },
     Panel: {
       style: {
-        backgroundColor: "black",
-        padding: "1px 1px 0 0"
+        backgroundColor: "#00bcd4",
+        padding: "0 4px 4px 4px",
+        boxShadow: "rgba(0, 0, 0, 0.2) 0px 14px 45px, rgba(0, 0, 0, 0.2) 0px 10px 18px"
       },
       header: {
         style: {
@@ -158,8 +165,12 @@ var flexboxStyle = function (opts, skin) {
     },
     TabButton: {
       style: {
+        textTransform: "uppercase",
+        borderWidth: "0 0 2px 0",
+        borderStyle: "solid",
+        borderColor: colors.tabUnderlineColor,
         backgroundColor: colors.tabBackgroundColor,
-        height: opts.headerHeight - 1,
+        height: opts.headerHeight - 2,
         margin: "0 0 1px 1px",
         position: "inherit",
         float: "none",
@@ -177,6 +188,7 @@ var flexboxStyle = function (opts, skin) {
       mods: {
         active: {
           style: {
+            borderColor: colors.activeTabUnderlineColor,
             backgroundColor: colors.activeTabBackgroundColor
           },
           state: {
@@ -193,7 +205,7 @@ var flexboxStyle = function (opts, skin) {
               title: {
                 style: {
                   color: colors.activeTabColor,
-                  textShadow: "1px 1px 1px " + colors.activeTabTextShadow
+                  textShadow: "1px 1px 1px " + colors.activeTabTextShadow,
                 }
               }
             }
@@ -220,6 +232,7 @@ var flexboxStyle = function (opts, skin) {
       },
       title: {
         style: {
+          textTransform: "uppercase",
           color: colors.tabColor,
           textShadow: "1px 1px 1px " + colors.tabTextShadow
         }
