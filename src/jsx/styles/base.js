@@ -104,10 +104,11 @@ var buildStyle = function (opts) {
           float: "left",
           display: "block",
           listStyle: "none",
-          padding: "0 5px",
+          padding: "0 4px",
           height: opts.headerHeight,
           fontSize: "0.95em",
-          cursor: "pointer"
+          cursor: "pointer",
+          textAlign: "center"
         },
         mods: {
           untitled: {
