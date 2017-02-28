@@ -140,9 +140,7 @@ var buildStyle = function (opts) {
         box: {
           style: {
             lineHeight: Utils.pixelsOf(opts.headerHeight),
-            marginRight: 6,
             opacity: 0.85,
-            marginLeft: 10,
             height: "100%",
             display: "inline-block",
             position: "relative",

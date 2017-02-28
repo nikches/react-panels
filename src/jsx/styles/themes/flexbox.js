@@ -239,8 +239,6 @@ var flexboxStyle = function (opts, skin) {
       },
       box: {
         style: {
-          marginRight: 0,
-          maxWidth: "calc(100% - " + Utils.pixelsOf(opts.headerHeight) + ")"
         }
       }
     },
