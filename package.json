@@ -26,10 +26,7 @@
   "homepage": "http://theadd.github.io/react-panels/",
   "license": "MIT",
   "files": [
-    "README.md",
-    "addons.js",
-    "index.js",
-    "dist/"
+    "README.md"
   ],
   "main": "index.js",
   "devDependencies": {
@@ -41,7 +38,9 @@
     "grunt-react": "^0.10.0"
   },
   "dependencies": {
-    "immutability-helper": "^2.1.2",
+    "immutability-helper": "^2.1.2"
+  },
+  "peerDependecies": {
     "react": "15.0.2",
     "react-addons-css-transition-group": "15.0.2",
     "react-dom": "15.0.2"
