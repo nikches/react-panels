@@ -4,7 +4,7 @@ var buildStyle = function (opts) {
   opts = {
     theme: opts.theme || "base",
     skin: opts.skin || "default",
-    headerHeight: opts.headerHeight || 32,
+    headerHeight: opts.headerHeight || 50,
     headerFontSize: opts.headerFontSize || 14,
     borderRadius: opts.borderRadius || 3,
     maxTitleWidth: opts.maxTitleWidth || 130,
@@ -202,7 +202,7 @@ var buildStyle = function (opts) {
           },
           children: {
             style: {
-              padding: "10px"
+              padding: 0
             }
           }
         },
@@ -210,7 +210,7 @@ var buildStyle = function (opts) {
           style: { },
           children: {
             style: {
-              padding: "10px"
+              padding: 0
             }
           }
         },
@@ -218,7 +218,7 @@ var buildStyle = function (opts) {
           style: {
             minHeight: Utils.pixelsOf(opts.headerHeight),
             lineHeight: Utils.pixelsOf(opts.headerHeight),
-            padding: "10px"
+            padding: 0
           },
           children: {
             style: {}
