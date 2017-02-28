@@ -16,3 +16,6 @@ docs/dist/*
 !docs/dist/.gitkeep
 build/*
 !build/.gitkeep
+dist/
+index.js
+addons.js
