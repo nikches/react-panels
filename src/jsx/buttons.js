@@ -1,9 +1,9 @@
 
 var ToggleButton = React.createClass({
-  displayName: 'ToggleButton',
+  displayName: "ToggleButton",
   mixins: [Mixins.Button],
 
-  handleClick: function (ev) {
+  handleClick: function () {
     var self = this;
 
     this.setState({active: !this.state.active});
@@ -15,7 +15,7 @@ var ToggleButton = React.createClass({
   },
 
   render: function () {
-    var sheet = this.getSheet('Button');
+    var sheet = this.getSheet("Button");
 
     //JSX source: https://github.com/Theadd/react-panels/blob/v2/src/jsx/buttons.jsx#L21-L25
     return (
@@ -29,7 +29,7 @@ var ToggleButton = React.createClass({
 });
 
 var Button = React.createClass({
-  displayName: 'Button',
+  displayName: "Button",
   mixins: [Mixins.Button],
 
   propTypes: {
@@ -43,7 +43,7 @@ var Button = React.createClass({
   },
 
   render: function () {
-    var sheet = this.getSheet('Button');
+    var sheet = this.getSheet("Button");
 
     return (
       React.createElement("li", Object.assign({}, {style: sheet.style}, this.listeners, {title: this.props.title}),

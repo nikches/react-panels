@@ -1,6 +1,6 @@
 
 var FloatingPanel = React.createClass({
-  displayName: 'FloatingPanel',
+  displayName: "FloatingPanel",
   mixins: [Mixins.PanelWrapper],
   propTypes: {
     left:React.PropTypes.number,
@@ -9,7 +9,7 @@ var FloatingPanel = React.createClass({
     style:React.PropTypes.object,
     onClick:React.PropTypes.func,
   },
-  
+
   getDefaultProps: function () {
     return {
       "left": 0,
@@ -31,7 +31,7 @@ var FloatingPanel = React.createClass({
   componentWillReceiveProps:function(nextProps) {
     this.setState({width:nextProps.width});
   },
-  
+
   dragStart: function (e) {
     this.panelBounds = {
       startLeft: this.state.left,
@@ -44,16 +44,16 @@ var FloatingPanel = React.createClass({
       var img = document.createElement("img");
       img.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABmJLR0QA/wD/AP+gvaeTAAAADUlEQVQI12NgYGBgAAAABQABXvMqOgAAAABJRU5ErkJggg==";
       img.width = 1;
-      e.dataTransfer.setData('text/plain', "Panel");
+      e.dataTransfer.setData("text/plain", "Panel");
       e.dataTransfer.setDragImage(img, -1000, -1000);
     } catch (err) { /* Fix for IE */ }
 
-    window.addEventListener('dragover', this.dragOver);
+    window.addEventListener("dragover", this.dragOver);
   },
 
   dragEnd: function() {
     delete this.panelBounds;
-    window.removeEventListener('dragover', this.dragOver);
+    window.removeEventListener("dragover", this.dragOver);
     if (this.props.onBoundsChange) {
       var height = ReactDOM.findDOMNode(this).offsetHeight;
       this.props.onBoundsChange({left:this.state.left, top:this.state.top, width:this.state.width, height:height});
@@ -68,12 +68,12 @@ var FloatingPanel = React.createClass({
       this.setState({ left: left, top: top });
     }
   },
-  
+
   handleMouseClick: function (e) {
     if (typeof this.props.onClick === "function") {
       this.props.onClick(e);
     }
-  },  
+  },
 
   render: function() {
     var transform = "translate3d(" + Utils.pixelsOf(this.state.left) + ", " + Utils.pixelsOf(this.state.top) + ", 0)",
@@ -113,7 +113,7 @@ var FloatingPanel = React.createClass({
 });
 
 var Panel = React.createClass({
-  displayName: 'Panel',
+  displayName: "Panel",
   mixins: [Mixins.PanelWrapper],
 
   render: function() {
@@ -132,7 +132,7 @@ var Panel = React.createClass({
 });
 
 var ReactPanel = React.createClass({
-  displayName: 'ReactPanel',
+  displayName: "ReactPanel",
   mixins: [Mixins.Styleable, Mixins.Transitions],
 
   getDefaultProps: function () {
@@ -179,8 +179,8 @@ var ReactPanel = React.createClass({
 
   componentDidMount: function () {
     if (this.props.autocompact) {
-      var tabsStart = this.refs['tabs-start'],
-        tabsEnd = this.refs['tabs-end'],
+      var tabsStart = this.refs["tabs-start"],
+        tabsEnd = this.refs["tabs-end"],
         using = this.refs.tabs.offsetWidth,
         total = tabsEnd.offsetLeft - (tabsStart.offsetLeft + tabsStart.offsetWidth);
 
@@ -196,8 +196,8 @@ var ReactPanel = React.createClass({
         next_childs = React.Children.count(nextProps.children);
 
       if (next_childs > childs && this.props.autocompact && !this.state.compacted) {
-        var tabsStart = this.refs['tabs-start'],
-          tabsEnd = this.refs['tabs-end'],
+        var tabsStart = this.refs["tabs-start"],
+          tabsEnd = this.refs["tabs-end"],
           using = this.refs.tabs.offsetWidth,
           total = tabsEnd.offsetLeft - (tabsStart.offsetLeft + tabsStart.offsetWidth),
           maxTabWidth = this.props.maxTitleWidth + 35;
@@ -313,7 +313,7 @@ var ReactPanel = React.createClass({
     return (
       React.createElement("div", {style: sheet.style},
         React.createElement("header", {draggable: draggable, onDragEnd: self.handleDragEnd,
-            onDragStart: self.handleDragStart, ref: "header", style: sheet.header.style},
+          onDragStart: self.handleDragStart, ref: "header", style: sheet.header.style},
           icon, title,
           React.createElement("div", {style: sheet.tabsStart.style, ref: "tabs-start"}),
           this._getGroupedButtons(this.props.leftButtons).map(function (group) {

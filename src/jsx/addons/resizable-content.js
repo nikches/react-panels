@@ -1,10 +1,10 @@
-
-/* Based in react-component-resizable by Nicholas Rakoto
- The MIT License (MIT) https://github.com/nrako/react-component-resizable
- Copyright (c) 2014 Nicholas Rakoto
+/**
+ * Based in react-component-resizable by Nicholas Rakoto
+ * The MIT License (MIT) https://github.com/nrako/react-component-resizable
+ * Copyright (c) 2014 Nicholas Rakoto
  */
 var ResizableContent = React.createClass({
-  displayName: 'ResizableContent',
+  displayName: "ResizableContent",
   mixins: [Mixins.Content],
 
   lastDimensions: {
@@ -21,9 +21,9 @@ var ResizableContent = React.createClass({
 
   getDefaultProps: function () {
     return {
-      triggersClass: 'resize-triggers',
-      expandClass: 'expand-trigger',
-      contractClass: 'contract-trigger'
+      triggersClass: "resize-triggers",
+      expandClass: "expand-trigger",
+      contractClass: "contract-trigger"
     };
   },
 
@@ -55,8 +55,8 @@ var ResizableContent = React.createClass({
 
     contract.scrollLeft      = contract.scrollWidth;
     contract.scrollTop       = contract.scrollHeight;
-    expandChild.style.width  = expand.offsetWidth + 1 + 'px';
-    expandChild.style.height = expand.offsetHeight + 1 + 'px';
+    expandChild.style.width  = expand.offsetWidth + 1 + "px";
+    expandChild.style.height = expand.offsetHeight + 1 + "px";
     expand.scrollLeft        = expand.scrollWidth;
     expand.scrollTop         = expand.scrollHeight;
   },
@@ -92,7 +92,7 @@ var ResizableContent = React.createClass({
   render: function() {
     var props = update(this.props, {$merge: {
       onScroll: this.onScroll,
-      ref: 'resizable'
+      ref: "resizable"
     }});
 
     props.style = props.style || {};
@@ -100,13 +100,13 @@ var ResizableContent = React.createClass({
     props.style.display = "block";
 
     return (
-      React.createElement('div', props,
+      React.createElement("div", props,
         [
           this.props.children,
-          React.createElement('div', {className: this.props.triggersClass, key: 'trigger'},
+          React.createElement("div", {className: this.props.triggersClass, key: "trigger"},
             [
-              React.createElement('div', {className: this.props.expandClass, ref: 'expand', key: 'expand'}, React.createElement('div', {ref: 'expandChild'})),
-              React.createElement('div', {className: this.props.contractClass, ref: 'contract', key: 'contract'})
+              React.createElement("div", {className: this.props.expandClass, ref: "expand", key: "expand"}, React.createElement("div", {ref: "expandChild"})),
+              React.createElement("div", {className: this.props.contractClass, ref: "contract", key: "contract"})
             ]
           )
         ]

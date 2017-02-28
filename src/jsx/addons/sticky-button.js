@@ -1,6 +1,5 @@
-
 var StickyButton = React.createClass({
-  displayName: 'StickyButton',
+  displayName: "StickyButton",
   mixins: [Mixins.Button],
 
   handleClick: function () {
@@ -27,7 +26,7 @@ var StickyButton = React.createClass({
   },
 
   render: function () {
-    var sheet = this.getSheet('Button');
+    var sheet = this.getSheet("Button");
 
     return (
       React.createElement("li", Object.asssign({}, {style: sheet.style},  this.listeners, {title: this.props.title}),

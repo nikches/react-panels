@@ -1,35 +1,35 @@
 
 var flexbox2Skin = function (skin) {
   switch (skin || "") {
-    default:
-      return {
-        tabColor: "#b0b0b0",
-        tabIconColor: "#b0b0b0",
-        activeTabColor: "#daaf64",
-        tabTextShadow: "#000000",
-        activeTabTextShadow: "#000000",
-        titleTextShadow: "#a6a6a6",
-        iconTextShadow: "#000000",
-        iconColor: "#daaf64",
-        titleColor: "#daaf64",
-        buttonBackgroundColor: "rgba(104, 226, 207, 0.15)",
-        hoverButtonBackgroundColor: "rgba(104, 226, 207, 0.3)",
-        activeButtonBackgroundColor: "rgba(131, 247, 220, 0.33)",
-        buttonColor: "#eaeaea",
-        hoverButtonColor: "#ffffff",
-        activeButtonColor: "#daaf64",
-        buttonTextShadow: "#7F7F7F",
-        highlightedButtonBoxShadow: "rgba(255, 255, 255, 0.6)",
-        tabBackgroundColor: "rgba(104, 226, 207, 0.15)",
-        activeTabBackgroundColor: "rgba(131, 247, 220, 0.33)",
-        hoverTabBackgroundColor: "rgba(104, 226, 207, 0.3)",
-        toolbarBackgroundColor: "rgba(171, 255, 220, 0.2)",
-        contentBackgroundColor: "rgba(171, 255, 220, 0.34)",
-        footerBackgroundColor: "rgba(171, 255, 220, 0.2)",
-        borderColor: "#000000"
-      };
+  default:
+    return {
+      tabColor: "#b0b0b0",
+      tabIconColor: "#b0b0b0",
+      activeTabColor: "#daaf64",
+      tabTextShadow: "#000000",
+      activeTabTextShadow: "#000000",
+      titleTextShadow: "#a6a6a6",
+      iconTextShadow: "#000000",
+      iconColor: "#daaf64",
+      titleColor: "#daaf64",
+      buttonBackgroundColor: "rgba(104, 226, 207, 0.15)",
+      hoverButtonBackgroundColor: "rgba(104, 226, 207, 0.3)",
+      activeButtonBackgroundColor: "rgba(131, 247, 220, 0.33)",
+      buttonColor: "#eaeaea",
+      hoverButtonColor: "#ffffff",
+      activeButtonColor: "#daaf64",
+      buttonTextShadow: "#7F7F7F",
+      highlightedButtonBoxShadow: "rgba(255, 255, 255, 0.6)",
+      tabBackgroundColor: "rgba(104, 226, 207, 0.15)",
+      activeTabBackgroundColor: "rgba(131, 247, 220, 0.33)",
+      hoverTabBackgroundColor: "rgba(104, 226, 207, 0.3)",
+      toolbarBackgroundColor: "rgba(171, 255, 220, 0.2)",
+      contentBackgroundColor: "rgba(171, 255, 220, 0.34)",
+      footerBackgroundColor: "rgba(171, 255, 220, 0.2)",
+      borderColor: "#000000"
+    };
   }
-}
+};
 
 var flexbox2Style = function (_opts, skin) {
   var colors,

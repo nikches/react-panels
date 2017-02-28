@@ -1,7 +1,6 @@
-
 var Utils = {
   pixelsOf: function (value) {
-    var val = parseInt(value) || 0
+    var val = parseInt(value) || 0;
     return (val) ? String(val) + "px" : "0";
   },
   /* Copyright (c) 2012 Nicholas Fisher (MIT License) https://github.com/KyleAMathews/deepmerge */
@@ -13,9 +12,9 @@ var Utils = {
       target = target || [];
       dst = dst.concat(target);
       src.forEach(function(e, i) {
-        if (typeof dst[i] === 'undefined') {
+        if (typeof dst[i] === "undefined") {
           dst[i] = e;
-        } else if (typeof e === 'object') {
+        } else if (typeof e === "object") {
           dst[i] = Utils.merge(target[i], e);
         } else {
           if (target.indexOf(e) === -1) {
@@ -24,13 +23,13 @@ var Utils = {
         }
       });
     } else {
-      if (target && typeof target === 'object') {
+      if (target && typeof target === "object") {
         Object.keys(target).forEach(function (key) {
           dst[key] = target[key];
-        })
+        });
       }
       Object.keys(src).forEach(function (key) {
-        if (typeof src[key] !== 'object' || !src[key]) {
+        if (typeof src[key] !== "object" || !src[key]) {
           dst[key] = src[key];
         }
         else {
@@ -74,10 +73,10 @@ var DragAndDropHandler = function (opts, callback) {
 
 DragAndDropHandler.prototype.trigger = function (event, data) {
   switch (event) {
-    case 'onDragEnd':
-      return this._callback(data);
-    default:
-      throw new Error("Not implemented");
+  case "onDragEnd":
+    return this._callback(data);
+  default:
+    throw new Error("Not implemented");
   }
 };
 

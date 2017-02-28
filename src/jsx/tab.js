@@ -1,6 +1,5 @@
-
 var TabGroup = React.createClass({
-  displayName: 'TabGroup',
+  displayName: "TabGroup",
 
   propTypes: {
     style: React.PropTypes.object.isRequired,
@@ -34,7 +33,7 @@ var TabGroup = React.createClass({
       this.tabKeys.push(this.props.data[i]["data-key"]);
     }
     this.keyMap = this.tabKeys.slice(0);
-    this.constKeyMap = this.tabKeys.slice(0); //req. don't try to merge
+    this.constKeyMap = this.tabKeys.slice(0); //req. don"t try to merge
   },
 
   componentDidMount: function () {
@@ -63,7 +62,7 @@ var TabGroup = React.createClass({
     this.ctx.dragging = true;
     this._index = this.tabKeys.indexOf(this.ctx.draggedKey);
 
-    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.effectAllowed = "move";
     e.dataTransfer.setData("text/html", target);
     e.dataTransfer.setDragImage(target, -15, -15);
   },
@@ -128,7 +127,7 @@ var TabGroup = React.createClass({
     if (this.ctx.dragging) {
       this.ctx.dragging = false;
       this._index = this._index || this.acquireToken(e);
-      this.handler.trigger('onDragEnd', {
+      this.handler.trigger("onDragEnd", {
         element: this.ctx.draggedKey,
         target: this.ctx.targetKey,
         placement: this.ctx.placement
@@ -207,9 +206,9 @@ var TabGroup = React.createClass({
 
     return (
       React.createElement(tp.transitionComponent, Object.assign({}, {component: "ul",
-          style: this.props.style, transitionName: tp.transitionName,
-          transitionAppear: tp.transitionAppear, transitionEnter: tp.transitionEnter,
-          transitionLeave: tp.transitionLeave}, tp.transitionCustomProps, sp),
+        style: this.props.style, transitionName: tp.transitionName,
+        transitionAppear: tp.transitionAppear, transitionEnter: tp.transitionEnter,
+        transitionLeave: tp.transitionLeave}, tp.transitionCustomProps, sp),
         tabs
       )
     );
@@ -247,10 +246,10 @@ var TabButton = React.createClass({
   render: function() {
     var icon = null,
       title = "",
-      mods = (this.context.selectedIndex == this.props.index) ? ['active'] : [];
+      mods = (this.context.selectedIndex == this.props.index) ? ["active"] : [];
 
-    if (!(this.props.showTitle && this.props.title.length)) mods.push('untitled');
-    if (this.props.index == this.context.numTabs - 1) mods.push('last');
+    if (!(this.props.showTitle && this.props.title.length)) mods.push("untitled");
+    if (this.props.index == this.context.numTabs - 1) mods.push("last");
     var sheet = this.getSheet("TabButton", mods, {});
 
     if (this.props.showTitle && this.props.title.length) {
@@ -267,12 +266,11 @@ var TabButton = React.createClass({
 
     return (
       React.createElement("li", Object.assign({}, {
-            onClick: this.handleClick,
-            style: sheet.style,
-            "data-index": this.props["data-index"],
-            "data-key": this.props["data-key"]
-          },
-          this.listeners),
+        onClick: this.handleClick,
+        style: sheet.style,
+        "data-index": this.props["data-index"],
+        "data-key": this.props["data-key"]
+      }, this.listeners),
         React.createElement("div", {title: this.props.title},
           icon, React.createElement("div", {style: sheet.box.style}, title)
         )
@@ -282,7 +280,7 @@ var TabButton = React.createClass({
 });
 
 var Tab = React.createClass({
-  displayName: 'Tab',
+  displayName: "Tab",
   mixins: [Mixins.Styleable, Mixins.Transitions],
 
   propTypes: {
@@ -330,28 +328,38 @@ var Tab = React.createClass({
 
   getValue: function (name) {
     switch (name) {
-      case "index":
-        return (typeof this.props.index !== "undefined") ? this.props.index : this.context.index;
-      case "selectedIndex":
-        return this.context.selectedIndex;
-      case "showToolbar":
-        return this.props.showToolbar;
-      case "showFooter":
-        return this.props.showFooter;
-      case "active":
-        return this.isActive();
-      case "hasToolbar":
-        return this.hasToolbar || false;
-      case "hasFooter":
-        return this.hasFooter || false;
-      case "mounted":
-        return this.mounted || false;
-      case "automount":
-        return this.props.automount;
-      case "numChilds":
-        return React.Children.count(this.props.children);
-      case "tabKey":
-        return (typeof this.props.tabKey !== "undefined") ? this.props.tabKey : this.context.tabKey;
+    case "index":
+      return (typeof this.props.index !== "undefined") ? this.props.index : this.context.index;
+
+    case "selectedIndex":
+      return this.context.selectedIndex;
+
+    case "showToolbar":
+      return this.props.showToolbar;
+
+    case "showFooter":
+      return this.props.showFooter;
+
+    case "active":
+      return this.isActive();
+
+    case "hasToolbar":
+      return this.hasToolbar || false;
+
+    case "hasFooter":
+      return this.hasFooter || false;
+
+    case "mounted":
+      return this.mounted || false;
+
+    case "automount":
+      return this.props.automount;
+
+    case "numChilds":
+      return React.Children.count(this.props.children);
+
+    case "tabKey":
+      return (typeof this.props.tabKey !== "undefined") ? this.props.tabKey : this.context.tabKey;
     }
   },
 
@@ -368,7 +376,7 @@ var Tab = React.createClass({
       numChilds = React.Children.count(this.props.children),
       active = this.isActive(),
       tp = this.getTransitionProps(),
-      mods = (active) ? ['active'] : [],
+      mods = (active) ? ["active"] : [],
       sheet = {};
 
     this.mounted = (this.mounted || false) || this.props.automount || active;
@@ -378,64 +386,64 @@ var Tab = React.createClass({
       var type = (i == 0 && numChilds >= 2) ? 0 : 1;   // 0: Toolbar, 1: Content, 2: Footer
       if (React.isValidElement(child) && (typeof child.props.panelComponentType !== "undefined")) {
         switch (String(child.props.panelComponentType)) {
-          case "Toolbar": type = 0; break;
-          case "Content": type = 1; break;
-          case "Footer": type = 2; break;
+        case "Toolbar": type = 0; break;
+        case "Content": type = 1; break;
+        case "Footer": type = 2; break;
         }
       }
       if (i == 0) {
         if (type == 0) {
           this.hasToolbar = true;
-          if (self.props.showToolbar) mods.push('withToolbar');
+          if (self.props.showToolbar) mods.push("withToolbar");
         }
         sheet = self.getSheet("Tab", mods);
       }
       if (i == self.props.children.length-1 && type == 2) {
         this.hasFooter = true;
         if (self.props.showFooter) {
-          mods.push('withFooter');
+          mods.push("withFooter");
           sheet = self.getSheet("Tab", mods);
         }
       }
       switch (type) {
-        case 0:
-          return (self.props.showToolbar) ? (
-            React.createElement("div", {key: i, style: sheet.toolbar.style},
-              React.createElement("div", {className: "tab-toolbar", style: sheet.toolbar.children.style},
-                child
-              )
+      case 0:
+        return (self.props.showToolbar) ? (
+          React.createElement("div", {key: i, style: sheet.toolbar.style},
+            React.createElement("div", {className: "tab-toolbar", style: sheet.toolbar.children.style},
+              child
             )
-          ) : null;
-        case 1:
-          var contentStyle = update({
-            maxHeight : this.props.maxContentHeight || "none",
-            overflowX :"hidden",
-            overflowY : this.props.maxContentHeight?"auto":"hidden"
-          }, {$merge: sheet.content.style});
+          )
+        ) : null;
+      case 1:
+        var contentStyle = update({
+          maxHeight : this.props.maxContentHeight || "none",
+          overflowX :"hidden",
+          overflowY : this.props.maxContentHeight?"auto":"hidden"
+        }, {$merge: sheet.content.style});
 
-          return (
-            React.createElement("div", {key: i, style: contentStyle},
-              React.createElement("div", {className: "tab-content", style: sheet.content.children.style},
-                child
-              )
+        return (
+          React.createElement("div", {key: i, style: contentStyle},
+            React.createElement("div", {className: "tab-content", style: sheet.content.children.style},
+              child
             )
-          );
-        case 2:
-          return (self.props.showFooter) ? (
-            React.createElement("div", {key: i, style: sheet.footer.style},
-              React.createElement("div", {className: "tab-footer", style: sheet.footer.children.style},
-                child
-              )
+          )
+        );
+      case 2:
+        return (self.props.showFooter) ? (
+          React.createElement("div", {key: i, style: sheet.footer.style},
+            React.createElement("div", {className: "tab-footer", style: sheet.footer.children.style},
+              child
             )
-          ) : null;
+          )
+        ) : null;
       }
     }.bind(this)) : null;
 
     return (
       React.createElement(tp.transitionComponent, Object.assign({}, {component: "div", style: sheet.style,
-            transitionName: tp.transitionName, transitionAppear: tp.transitionAppear && active,
-            transitionEnter: tp.transitionEnter && active, transitionLeave: tp.transitionLeave && active},
-          tp.transitionCustomProps),
+        transitionName: tp.transitionName, transitionAppear: tp.transitionAppear && active,
+        transitionEnter: tp.transitionEnter && active, transitionLeave: tp.transitionLeave && active},
+        tp.transitionCustomProps),
         innerContent
       )
     );

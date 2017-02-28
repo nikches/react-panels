@@ -1,9 +1,8 @@
-
 /**
  * Requires: jQuery + jQuery niceScroll plugin
  */
 var ScrollableTabContent = React.createClass({
-  displayName: 'ScrollableTabContent',
+  displayName: "ScrollableTabContent",
   mixins: [Mixins.Content],
 
   getDefaultProps: function () {

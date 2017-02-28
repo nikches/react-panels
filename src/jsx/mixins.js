@@ -4,7 +4,7 @@ var Mixins = {
     getInitialState: function () {
       this.__ssv = {};
       this.__ssvh = false;
-      this.__ssa = {target: '', mods: [], alter: {}};
+      this.__ssa = {target: "", mods: [], alter: {}};
       return {};
     },
     contextTypes: {
@@ -13,8 +13,9 @@ var Mixins = {
     getSheet: function (target, mods, alter) {
       var rebuild = false, i;
 
-      mods = (typeof this['getSheetMods'] === "function") ? this['getSheetMods'](mods || []) : mods || [];
-      alter = alter || {}
+      mods = (typeof this["getSheetMods"] === "function") ? this["getSheetMods"](mods || []) : mods || [];
+      alter = alter || {};
+
       if (target != this.__ssa.target) rebuild = true;
       else {
         if (mods.length != this.__ssa.mods.length) rebuild = true;
@@ -147,7 +148,7 @@ Mixins.StyleableWithEvents = {
   },
 
   handleMouseEnter: function (ev) {
-    if (typeof this.props['onMouseEnter'] === "function") this.props['onMouseEnter'](ev);
+    if (typeof this.props["onMouseEnter"] === "function") this.props["onMouseEnter"](ev);
 
     this.setState({
       _hover: true
@@ -155,7 +156,7 @@ Mixins.StyleableWithEvents = {
   },
 
   handleMouseLeave: function (ev) {
-    if (typeof this.props['onMouseLeave'] === "function") this.props['onMouseLeave'](ev);
+    if (typeof this.props["onMouseLeave"] === "function") this.props["onMouseLeave"](ev);
 
     this.setState({
       _hover: false
@@ -191,7 +192,7 @@ Mixins.PanelWrapper = {
       "icon": false,
       "title": "",
       "selectedIndex": 0,
-      /** Triggered before a change tab event propagated from within the Panel (e.g., user's click).
+      /** Triggered before a change tab event propagated from within the Panel (e.g., user"s click).
        *  Optionally, return false to stop it.
        */
       "onTabChange": null,
@@ -283,7 +284,7 @@ Mixins.PanelWrapper = {
 };
 
 Mixins.TabWrapper = {
-  observedProps: ['selectedIndex', 'index'],
+  observedProps: ["selectedIndex", "index"],
 
   propTypes: {
     tabKey: React.PropTypes.any
@@ -370,10 +371,10 @@ Mixins.Button = {
 
   getSheetMods: function (otherMods) {
     var mods = otherMods || [];   //np
-    if (this.state.active && mods.indexOf('active') == -1) mods.push('active');
-    if (!this.state.visible && mods.indexOf('hidden') == -1) mods.push('hidden');
-    if (!this.state.enabled && mods.indexOf('disabled') == -1) mods.push('disabled');
-    if (this.state.highlighted && mods.indexOf('highlighted') == -1) mods.push('highlighted');
+    if (this.state.active && mods.indexOf("active") == -1) mods.push("active");
+    if (!this.state.visible && mods.indexOf("hidden") == -1) mods.push("hidden");
+    if (!this.state.enabled && mods.indexOf("disabled") == -1) mods.push("disabled");
+    if (this.state.highlighted && mods.indexOf("highlighted") == -1) mods.push("highlighted");
 
     return mods;
   },
@@ -381,24 +382,24 @@ Mixins.Button = {
   _handleDoubleClick: function (ev) {
     if (typeof this.props.onDoubleClick === "function" && this.props.onDoubleClick(ev, this) === false) return;
 
-    if (typeof this['handleDoubleClick'] === "function") {
-      return this['handleDoubleClick'](ev);
+    if (typeof this["handleDoubleClick"] === "function") {
+      return this["handleDoubleClick"](ev);
     }
   },
 
   _handleClick: function (ev) {
     if (typeof this.props.onClick === "function" && this.props.onClick(ev, this) === false) return;
 
-    if (typeof this['handleClick'] === "function") {
-      return this['handleClick'](ev);
+    if (typeof this["handleClick"] === "function") {
+      return this["handleClick"](ev);
     }
   },
 
   _handleContextMenu: function (ev) {
     if (typeof this.props.onContextMenu === "function" && this.props.onContextMenu(ev, this) === false) return;
 
-    if (typeof this['handleContextMenu'] === "function") {
-      return this['handleContextMenu'](ev);
+    if (typeof this["handleContextMenu"] === "function") {
+      return this["handleContextMenu"](ev);
     }
   }
 

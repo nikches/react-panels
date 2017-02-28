@@ -1,6 +1,6 @@
 
 var Toolbar = React.createClass({
-  displayName: 'Toolbar',
+  displayName: "Toolbar",
   mixins: [Mixins.Toolbar],
 
   render: function () {
@@ -10,7 +10,7 @@ var Toolbar = React.createClass({
 });
 
 var Content = React.createClass({
-  displayName: 'Content',
+  displayName: "Content",
   mixins: [Mixins.Content],
 
   render: function () {
@@ -20,7 +20,7 @@ var Content = React.createClass({
 });
 
 var Footer = React.createClass({
-  displayName: 'Footer',
+  displayName: "Footer",
   mixins: [Mixins.Footer],
 
   render: function () {
