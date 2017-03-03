@@ -1,4 +1,3 @@
-
 var chemicalStyle = function (opts, skin) {
   var colors;
   skin = skin || opts.skin;

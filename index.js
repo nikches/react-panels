@@ -10,7 +10,6 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var update = require('immutability-helper');
 var CSSTransitionGroup = require('react-addons-css-transition-group');
-
 var flexbox2Skin = function (skin) {
   switch (skin || "") {
   default:
@@ -315,99 +314,65 @@ var flexbox2Style = function (_opts, skin) {
   };
 };
 
-
 var flexboxStyle = function (opts, skin) {
-  var colors;
-  var isSafari = /Safari/.test(window.navigator.userAgent) && /Apple Computer/.test(window.navigator.vendor);
-  var skin = skin || opts.skin;
+  var colors,
+    isSafari = /Safari/.test(window.navigator.userAgent) && /Apple Computer/.test(window.navigator.vendor);
+  skin = skin || opts.skin;
 
   switch (skin) {
-  case "material-ui":
-    colors = {
-      activeButtonBackgroundColor: "#00bcd4",
-      activeButtonColor: "#f72121",
-      activeTabBackgroundColor: "#00bcd4",
-      activeTabColor: "#ffffff",
-      activeTabTextShadow: "initial",
-      activeTabUnderlineColor: "#ff5722",
-      buttonBackgroundColor: "#00bcd4",
-      buttonColor: "#eaeaea",
-      buttonTextShadow: "initial",
-      contentBackgroundColor: "#ffffff",
-      footerBackgroundColor: "#ffffff",
-      hoverButtonBackgroundColor: "#00bcd4",
-      hoverButtonColor: "#ffffff",
-      hoverTabBackgroundColor: "#00bcd4",
-      iconColor: "#ffffff",
-      iconTextShadow: "initial",
-      tabBackgroundColor: "#00bcd4",
-      tabColor: "#ffffff",
-      tabIconColor: "#616161",
-      tabTextShadow: "initial",
-      tabUnderlineColor: "#00bcd4",
-      titleColor: "#ffffff",
-      titleTextShadow: "initial",
-      toolbarBackgroundColor: "#00bcd4",
-    };
-    break;
+    case "fiery":
+      colors = {
+        tabColor: "#b0b0b0",
+        tabIconColor: "#616161",
+        activeTabColor: "#f72121",
+        tabTextShadow: "#000000",
+        activeTabTextShadow: "#000000",
+        titleTextShadow: "#a6a6a6",
+        iconTextShadow: "#000000",
+        iconColor: "#ffffff",
+        titleColor: "#ffffff",
+        buttonBackgroundColor: "#202020",
+        hoverButtonBackgroundColor: "#342828",
+        activeButtonBackgroundColor: "#4d2c2c",
+        buttonColor: "#eaeaea",
+        hoverButtonColor: "#ffffff",
+        activeButtonColor: "#f72121",
+        buttonTextShadow: "#7F7F7F",
+        tabBackgroundColor: "#202020",
+        activeTabBackgroundColor: "#2e2e2e",
+        hoverTabBackgroundColor: "#342828",
+        toolbarBackgroundColor: "#4d2c2c",
+        contentBackgroundColor: "#3e3e3e",
+        footerBackgroundColor: "#4e4e4e"
+      };
+      break;
 
-  case "fiery":
-    colors = {
-      tabColor: "#b0b0b0",
-      tabIconColor: "#616161",
-      activeTabColor: "#f72121",
-      tabTextShadow: "#000000",
-      activeTabTextShadow: "#000000",
-      titleTextShadow: "#a6a6a6",
-      iconTextShadow: "#000000",
-      iconColor: "#ffffff",
-      titleColor: "#ffffff",
-      buttonBackgroundColor: "#202020",
-      hoverButtonBackgroundColor: "#342828",
-      activeButtonBackgroundColor: "#4d2c2c",
-      buttonColor: "#eaeaea",
-      hoverButtonColor: "#ffffff",
-      activeButtonColor: "#f72121",
-      buttonTextShadow: "#7F7F7F",
-      tabBackgroundColor: "#202020",
-      activeTabBackgroundColor: "#2e2e2e",
-      hoverTabBackgroundColor: "#342828",
-      toolbarBackgroundColor: "#4d2c2c",
-      contentBackgroundColor: "#3e3e3e",
-      footerBackgroundColor: "#4e4e4e",
-      activeTabUnderlineColor: "#ffffff",
-      tabUnderlineColor: "#000000",
-    };
-    break;
-
-  default:
-    colors = {
-      tabColor: "#b0b0b0",
-      tabIconColor: "#616161",
-      activeTabColor: "#ffffff",
-      tabTextShadow: "#000000",
-      activeTabTextShadow: "#7F7F7F",
-      titleTextShadow: "#a6a6a6",
-      iconTextShadow: "#a6a6a6",
-      iconColor: "#ffffff",
-      titleColor: "#ffffff",
-      buttonBackgroundColor: "#202020",
-      hoverButtonBackgroundColor: "#2a2a2a",
-      activeButtonBackgroundColor: "#4e4e4e",
-      buttonColor: "#eaeaea",
-      hoverButtonColor: "#ffffff",
-      activeButtonColor: "#ffffff",
-      buttonTextShadow: "#7F7F7F",
-      tabBackgroundColor: "#202020",
-      activeTabBackgroundColor: "#2e2e2e",
-      hoverTabBackgroundColor: "#2a2a2a",
-      toolbarBackgroundColor: "#4e4e4e",
-      contentBackgroundColor: "#3e3e3e",
-      footerBackgroundColor: "#4e4e4e",
-      activeTabUnderlineColor: "#ffffff",
-      tabUnderlineColor: "#000000",
-    };
-    break;
+    default:
+      colors = {
+        tabColor: "#b0b0b0",
+        tabIconColor: "#616161",
+        activeTabColor: "#ffffff",
+        tabTextShadow: "#000000",
+        activeTabTextShadow: "#7F7F7F",
+        titleTextShadow: "#a6a6a6",
+        iconTextShadow: "#a6a6a6",
+        iconColor: "#ffffff",
+        titleColor: "#ffffff",
+        buttonBackgroundColor: "#202020",
+        hoverButtonBackgroundColor: "#2a2a2a",
+        activeButtonBackgroundColor: "#4e4e4e",
+        buttonColor: "#eaeaea",
+        hoverButtonColor: "#ffffff",
+        activeButtonColor: "#ffffff",
+        buttonTextShadow: "#7F7F7F",
+        tabBackgroundColor: "#202020",
+        activeTabBackgroundColor: "#2e2e2e",
+        hoverTabBackgroundColor: "#2a2a2a",
+        toolbarBackgroundColor: "#4e4e4e",
+        contentBackgroundColor: "#3e3e3e",
+        footerBackgroundColor: "#4e4e4e"
+      };
+      break;
   }
 
   return {
@@ -418,9 +383,8 @@ var flexboxStyle = function (opts, skin) {
     },
     Panel: {
       style: {
-        backgroundColor: "#00bcd4",
-        padding: "0 4px 4px 4px",
-        boxShadow: "rgba(0, 0, 0, 0.2) 0px 14px 45px, rgba(0, 0, 0, 0.2) 0px 10px 18px"
+        backgroundColor: "black",
+        padding: "1px 1px 0 0"
       },
       header: {
         style: {
@@ -482,12 +446,8 @@ var flexboxStyle = function (opts, skin) {
     },
     TabButton: {
       style: {
-        textTransform: "uppercase",
-        borderWidth: "0 0 2px 0",
-        borderStyle: "solid",
-        borderColor: colors.tabUnderlineColor,
         backgroundColor: colors.tabBackgroundColor,
-        height: opts.headerHeight - 2,
+        height: opts.headerHeight - 1,
         margin: "0 0 1px 1px",
         position: "inherit",
         float: "none",
@@ -505,7 +465,6 @@ var flexboxStyle = function (opts, skin) {
       mods: {
         active: {
           style: {
-            borderColor: colors.activeTabUnderlineColor,
             backgroundColor: colors.activeTabBackgroundColor
           },
           state: {
@@ -522,7 +481,7 @@ var flexboxStyle = function (opts, skin) {
               title: {
                 style: {
                   color: colors.activeTabColor,
-                  textShadow: "1px 1px 1px " + colors.activeTabTextShadow,
+                  textShadow: "1px 1px 1px " + colors.activeTabTextShadow
                 }
               }
             }
@@ -549,13 +508,14 @@ var flexboxStyle = function (opts, skin) {
       },
       title: {
         style: {
-          textTransform: "uppercase",
           color: colors.tabColor,
           textShadow: "1px 1px 1px " + colors.tabTextShadow
         }
       },
       box: {
         style: {
+          marginRight: 0,
+          maxWidth: "calc(100% - " + Utils.pixelsOf(opts.headerHeight) + ")"
         }
       }
     },
@@ -631,8 +591,6 @@ var flexboxStyle = function (opts, skin) {
     }
   };
 };
-
-
 var chemicalStyle = function (opts, skin) {
   var colors;
   skin = skin || opts.skin;
@@ -879,6 +837,272 @@ var chemicalStyle = function (opts, skin) {
   };
 };
 
+var materialUiStyle = function (opts) {
+  var isSafari = /Safari/.test(window.navigator.userAgent) && /Apple Computer/.test(window.navigator.vendor);
+  var colors = {
+    activeButtonBackgroundColor: "#00bcd4",
+    activeButtonColor: "#f72121",
+    activeTabBackgroundColor: "#00bcd4",
+    activeTabColor: "#ffffff",
+    activeTabTextShadow: "initial",
+    activeTabUnderlineColor: "#ff5722",
+    buttonBackgroundColor: "#00bcd4",
+    buttonColor: "#eaeaea",
+    buttonTextShadow: "initial",
+    contentBackgroundColor: "#ffffff",
+    footerBackgroundColor: "#ffffff",
+    hoverButtonBackgroundColor: "#00bcd4",
+    hoverButtonColor: "#ffffff",
+    hoverTabBackgroundColor: "#00bcd4",
+    panelBackgroundColor: "#00bcd4",
+    iconColor: "#ffffff",
+    iconTextShadow: "initial",
+    tabBackgroundColor: "#00bcd4",
+    tabColor: "#ffffff",
+    tabIconColor: "#616161",
+    tabTextShadow: "initial",
+    tabUnderlineColor: "#00bcd4",
+    titleColor: "#ffffff",
+    titleTextShadow: "initial",
+    toolbarBackgroundColor: "#00bcd4",
+  };
+
+  return {
+    PanelWrapper: {
+      config: {
+        autocompact: false
+      }
+    },
+    Panel: {
+      style: {
+        backgroundColor: colors.panelBackgroundColor,
+        padding: "4px",
+        boxShadow: "rgba(0, 0, 0, 0.2) 0px 14px 45px, rgba(0, 0, 0, 0.2) 0px 10px 18px",
+        position: "relative",
+        boxSizing: "content-box"
+      },
+      header: {
+        style: {
+          backgroundColor: colors.panelBackgroundColor,
+          display: isSafari ? "-webkit-flex" : "flex",
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+        }
+      },
+      tabsStart: {
+        style: {
+          width: 0
+        }
+      },
+      tabsEnd: {
+        style: {
+          width: 0
+        }
+      },
+      tabs: {
+        style: {
+          float: "none",
+          WebkitFlex: "1",
+          flex: 1,
+          display: isSafari ? "-webkit-flex" : "flex",
+          overflow: "hidden",
+          minWidth: "initial"
+        }
+      },
+      icon: {
+        style: {
+          color: colors.iconColor,
+          textShadow: "2px 2px 2px " + colors.iconTextShadow,
+          float: "left"
+        }
+      },
+      box: {
+        style: {
+          float: "left"
+        }
+      },
+      title: {
+        style: {
+          color: colors.titleColor,
+          textShadow: "1px 1px 1px " + colors.titleTextShadow
+        }
+      },
+      group: {
+        style: {
+          padding: 0,
+          margin: 0,
+          display: isSafari ? "-webkit-flex" : "flex",
+          flexDirection: "flex-end",
+          overflow: "hidden",
+          height: "100%",
+        }
+      },
+      body: {
+        style: {
+          marginLeft: "1px"
+        }
+      }
+    },
+    TabButton: {
+      style: {
+        backgroundColor: colors.tabBackgroundColor,
+        borderColor: colors.tabUnderlineColor,
+        borderStyle: "solid",
+        borderWidth: "0 0 2px 0",
+        flex: "1 0 0",
+        flexShrink: 0,
+        float: "none",
+        height: "auto",
+        margin: 0,
+        overflow: "hidden",
+        position: "inherit",
+        textTransform: "uppercase",
+        WebkitFlex: 1,
+      },
+      state: {
+        hover: {
+          style: {
+            backgroundColor: colors.hoverTabBackgroundColor
+          }
+        }
+      },
+      mods: {
+        active: {
+          style: {
+            borderColor: colors.activeTabUnderlineColor,
+            backgroundColor: colors.activeTabBackgroundColor
+          },
+          state: {
+            hover: {
+              style: {
+                backgroundColor: colors.activeTabBackgroundColor
+              },
+              icon: {
+                style: {
+                  color: colors.activeTabColor,
+                  textShadow: "1px 1px 1px " + colors.tabTextShadow
+                }
+              },
+              title: {
+                style: {
+                  color: colors.activeTabColor,
+                  textShadow: "1px 1px 1px " + colors.activeTabTextShadow,
+                }
+              }
+            }
+          },
+          icon: {
+            style: {
+              color: colors.activeTabColor,
+              textShadow: "1px 1px 1px " + colors.tabTextShadow
+            }
+          },
+          title: {
+            style: {
+              color: colors.activeTabColor,
+              textShadow: "1px 1px 1px " + colors.activeTabTextShadow
+            }
+          }
+        }
+      },
+      icon: {
+        style: {
+          color: colors.tabIconColor,
+          textShadow: "1px 1px 1px " + colors.tabTextShadow
+        }
+      },
+      title: {
+        style: {
+          textTransform: "uppercase",
+          color: colors.tabColor,
+          textShadow: "1px 1px 1px " + colors.tabTextShadow
+        }
+      },
+      box: {
+        style: {
+        }
+      }
+    },
+    Tab: {
+      toolbar: {
+        style: {
+          minHeight: 0,
+          lineHeight: "inherit",
+          padding: "0",
+          display: "block",
+          position: "relative",
+          top: "-1px"
+        },
+        children: {
+          style: {
+            padding: "10px",
+            position: "relative",
+            marginTop: "1px",
+            backgroundColor: colors.toolbarBackgroundColor
+          }
+        }
+      },
+      content: {
+        style: {
+          backgroundColor: colors.contentBackgroundColor,
+          marginBottom: "1px",
+          paddingTop: opts.headerHeight - 4,
+          height: "100%",
+          boxSizing: "border-box",
+        }
+      },
+      footer: {
+        style: {
+          backgroundColor: colors.footerBackgroundColor,
+          marginBottom: "1px"
+        }
+      }
+    },
+    Button: {
+      style: {
+        backgroundColor: colors.buttonBackgroundColor,
+        marginLeft: "1px",
+        float: "none",
+        flexShrink: 0,
+      },
+
+      children: {
+        style: {
+          color: colors.buttonColor,
+          textShadow: "1px 1px 1px " + colors.buttonTextShadow
+        }
+      },
+
+      state: {
+        hover: {
+          style: {
+            backgroundColor: colors.hoverButtonBackgroundColor
+          },
+          children: {
+            style: {
+              color: colors.hoverButtonColor
+            }
+          }
+        }
+      },
+      mods: {
+        active: {
+          style: {
+            backgroundColor: colors.activeButtonBackgroundColor
+          },
+          children: {
+            style: {
+              color: colors.activeButtonColor
+            }
+          }
+        }
+      }
+    }
+  };
+};
+
 
 var buildStyle = function (opts) {
   opts = opts || {};
@@ -986,7 +1210,6 @@ var buildStyle = function (opts) {
           display: "block",
           listStyle: "none",
           padding: "0 4px",
-          height: opts.headerHeight,
           fontSize: "0.95em",
           cursor: "pointer",
           textAlign: "center"
@@ -1146,7 +1369,8 @@ var buildStyle = function (opts) {
     /* THEME: Chemical */
     chemical: chemicalStyle,
     flexbox: flexboxStyle,
-    flexbox2: flexbox2Style
+    flexbox2: flexbox2Style,
+    "material-ui": materialUiStyle,
   };
 
   var theme = (opts.theme != "base") ? styles[opts.theme](opts) : {};
@@ -1682,38 +1906,66 @@ Mixins.Button = {
 
 };
 
-
 var FloatingPanel = React.createClass({
+  MIN_WIDTH: 100,
+  MIN_HEIGHT: 100,
+
   displayName: "FloatingPanel",
   mixins: [Mixins.PanelWrapper],
+
   propTypes: {
-    left:React.PropTypes.number,
-    top:React.PropTypes.number,
-    width:React.PropTypes.number,
-    style:React.PropTypes.object,
-    onClick:React.PropTypes.func,
+    buttons: React.PropTypes.array,
+    height: React.PropTypes.number,
+    isFullscreen: React.PropTypes.bool,
+    left: React.PropTypes.number,
+    onClick: React.PropTypes.func,
+    style: React.PropTypes.object,
+    title: React.PropTypes.string,
+    top: React.PropTypes.number,
+    width: React.PropTypes.number,
   },
 
   getDefaultProps: function () {
     return {
-      "left": 0,
-      "top": 0,
-      "width": 420,
-      "style": {}
+      height: 500,
+      isFullscreen: false,
+      left: 0,
+      onClick: null,
+      style: {},
+      top: 0,
+      width: 420,
     };
   },
 
   getInitialState: function () {
-    this.skipUpdate = false;
+    this.wrapperRef = null;
+
+    this.tempLeft = 0;
+    this.tempTop = 0;
+    this.tempWidth = 0;
+    this.tempHeight = 0;
+
     return {
-      left: parseInt(this.props.left),
       top: parseInt(this.props.top),
-      width: parseInt(this.props.width)
+      left: parseInt(this.props.left),
+      width: parseInt(this.props.width),
+      height: parseInt(this.props.height),
+      floating: true,
+      isDragModeOn: false,
+      isResizeModeOn: false,
     };
   },
 
-  componentWillReceiveProps:function(nextProps) {
-    this.setState({width:nextProps.width});
+  componentWillReceiveProps: function(nextProps) {
+    var width = this.state.width;
+
+    if (nextProps.width !== undefined || nextProps.width !== null) {
+      width = nextProps.width;
+    }
+
+    this.setState({
+      width: width,
+    });
   },
 
   dragStart: function (e) {
@@ -1733,24 +1985,46 @@ var FloatingPanel = React.createClass({
     } catch (err) { /* Fix for IE */ }
 
     window.addEventListener("dragover", this.dragOver);
+
+    this.tempTop = this.state.top;
+    this.tempLeft = this.state.left;
+
+    var newState = {
+      isDragModeOn: true
+    };
+
+    if (this.props.isFullscreen === true) {
+      newState.floating = false;
+    }
+
+    this.setState(newState);
   },
 
   dragEnd: function() {
     delete this.panelBounds;
     window.removeEventListener("dragover", this.dragOver);
-    if (this.props.onBoundsChange) {
-      var height = ReactDOM.findDOMNode(this).offsetHeight;
-      this.props.onBoundsChange({left:this.state.left, top:this.state.top, width:this.state.width, height:height});
-    }
+
+    this.setState({
+      top: this.tempTop,
+      left: this.tempLeft,
+      floating: true,
+      isDragModeOn: false
+    });
   },
 
   dragOver: function(e) {
     if (this.panelBounds || false) {
-      var left = this.panelBounds.startLeft + (e.pageX - this.panelBounds.startPageX),
-        top = this.panelBounds.startTop + (e.pageY - this.panelBounds.startPageY);
-      this.skipUpdate = true;
-      this.setState({ left: left, top: top });
+      this.tempLeft = this.panelBounds.startLeft + (e.pageX - this.panelBounds.startPageX);
+      this.tempTop = this.panelBounds.startTop + (e.pageY - this.panelBounds.startPageY);
+
+      if (this.wrapperRef !== null) {
+        Object.assign(this.wrapperRef.style, this.getTransform(this.tempLeft, this.tempTop));
+      }
     }
+  },
+
+  shouldComponentUpdate: function () {
+    return (false === (this.state.isDragModeOn || this.state.isResizeModeOn));
   },
 
   handleMouseClick: function (e) {
@@ -1759,41 +2033,117 @@ var FloatingPanel = React.createClass({
     }
   },
 
-  render: function() {
-    var transform = "translate3d(" + Utils.pixelsOf(this.state.left) + ", " + Utils.pixelsOf(this.state.top) + ", 0)",
-      wrapperStyle = update({
-        WebkitTransform: transform,
-        MozTransform: transform,
-        msTransform: transform,
-        transform: transform,
-        width: Utils.pixelsOf(this.state.width),
-        position: "absolute"
-      }, {$merge: this.props.style});
-
-    if (!this.skipUpdate) {
-      var props = update({
-          onDragStart: this.dragStart,
-          onDragEnd: this.dragEnd,
-          floating: true
-        }, {$merge: this.config}),
-        keys = Object.keys(this.props);
-
-      for (var i = keys.length; --i >= 0;) {
-        if (["children", "left", "top", "width", "style"].indexOf(keys[i]) != -1) continue;
-        props[keys[i]] = this.props[keys[i]];
-      }
-      this.inner = (
-        React.createElement(ReactPanel, props,
-          this.props.children
-        )
-      );
-    } else {
-      this.skipUpdate = false;
+  handleMouseDown: function() {
+    if (this.props.isFullscreen === true) {
+      return;
     }
 
-    return React.createElement("div", {style:wrapperStyle, onClick:this.handleMouseClick}, this.inner);
-  }
+    var mouseMoveEventListener = function(e) {
+      if (this.wrapperRef !== null) {
+        if (this.tempWidth + e.movementX < this.MIN_WIDTH || this.tempHeight + e.movementY < this.MIN_HEIGHT) {
+          return;
+        }
 
+        this.tempWidth  += e.movementX;
+        this.tempHeight += e.movementY;
+
+        this.wrapperRef.style.width  = Utils.pixelsOf(this.tempWidth);
+        this.wrapperRef.style.height = Utils.pixelsOf(this.tempHeight);
+      }
+    }.bind(this);
+
+    var mouseUpEventListener = function() {
+      document.removeEventListener("mouseup", mouseUpEventListener);
+      document.removeEventListener("mousemove", mouseMoveEventListener);
+
+      this.setState({
+        width: this.tempWidth,
+        height: this.tempHeight,
+        isResizeModeOn: false,
+      });
+
+    }.bind(this);
+
+    document.addEventListener("mouseup", mouseUpEventListener);
+    document.addEventListener("mousemove", mouseMoveEventListener);
+
+    this.tempWidth = this.state.width;
+    this.tempHeight = this.state.height;
+
+    this.setState({
+      isResizeModeOn: true
+    });
+  },
+
+  getTransform: function (left, top) {
+    if (this.props.isFullscreen === true) {
+      left = 0;
+      top = 0;
+    }
+
+    var transform = "translate3d(" + Utils.pixelsOf(left) + ", " + Utils.pixelsOf(top)  + ", 0)";
+
+    return {
+      WebkitTransform: transform,
+      MozTransform: transform,
+      msTransform: transform,
+      transform: transform,
+    };
+  },
+
+  render: function() {
+    var inner = (React.createElement(ReactPanel, Object.assign({}, {
+      key: "key0",
+      floating: true,
+      onDragStart: this.dragStart,
+      onDragEnd: this.dragEnd,
+      title: this.props.title,
+      icon: this.props.icon,
+      buttons: this.props.buttons,
+    }, this.config), this.props.children));
+
+    var corner = React.createElement("div", {
+      key: "key1",
+      onMouseDown: this.handleMouseDown,
+      style: {
+        position: "absolute",
+        right: "0",
+        bottom: "-8px",
+        cursor: "se-resize",
+        border: "10px solid #00bcd4",
+        borderLeft: "10px solid transparent",
+        borderTop: "10px solid transparent",
+      },
+    });
+
+    var fullscreenStyle = {};
+    if (this.props.isFullscreen === true) {
+      fullscreenStyle = {
+        width: "100%",
+        height: "100%"
+      };
+    }
+
+    return React.createElement("div", {
+      ref: function (reference) {
+        this.wrapperRef = reference;
+      }.bind(this),
+
+      style: Object.assign({}, {
+        position: "absolute",
+        width: Utils.pixelsOf(this.state.width),
+        height: Utils.pixelsOf(this.state.height),
+        minWidth: Utils.pixelsOf(this.MIN_WIDTH),
+        minHeight: Utils.pixelsOf(this.MIN_HEIGHT),
+      },
+
+      this.props.style,
+      this.getTransform(this.state.left, this.state.top),
+      fullscreenStyle),
+
+      onClick: this.handleMouseClick,
+    }, [ inner, corner ]);
+  }
 });
 
 var Panel = React.createClass({
@@ -1801,13 +2151,14 @@ var Panel = React.createClass({
   mixins: [Mixins.PanelWrapper],
 
   render: function() {
-    var props = update({}, {$merge: this.config}),
-      keys = Object.keys(this.props);
+    var props = update({}, {$merge: this.config});
+    var keys = Object.keys(this.props);
 
     for (var i = keys.length; --i >= 0;) {
       if (["children"].indexOf(keys[i]) != -1) continue;
       props[keys[i]] = this.props[keys[i]];
     }
+
     return React.createElement(ReactPanel, props,
         this.props.children
     );
@@ -1818,6 +2169,13 @@ var Panel = React.createClass({
 var ReactPanel = React.createClass({
   displayName: "ReactPanel",
   mixins: [Mixins.Styleable, Mixins.Transitions],
+
+  propTypes: {
+    dragAndDropHandler: React.PropTypes.oneOfType([
+      React.PropTypes.object,
+      React.PropTypes.bool
+    ])
+  },
 
   getDefaultProps: function () {
     return {
@@ -1831,13 +2189,6 @@ var ReactPanel = React.createClass({
       "buttons": [],
       "leftButtons": []
     };
-  },
-
-  propTypes: {
-    dragAndDropHandler: React.PropTypes.oneOfType([
-      React.PropTypes.object,
-      React.PropTypes.bool
-    ])
   },
 
   getInitialState: function () {
@@ -1863,10 +2214,10 @@ var ReactPanel = React.createClass({
 
   componentDidMount: function () {
     if (this.props.autocompact) {
-      var tabsStart = this.refs["tabs-start"],
-        tabsEnd = this.refs["tabs-end"],
-        using = this.refs.tabs.offsetWidth,
-        total = tabsEnd.offsetLeft - (tabsStart.offsetLeft + tabsStart.offsetWidth);
+      var tabsStart = this.refs["tabs-start"];
+      var tabsEnd = this.refs["tabs-end"];
+      var using = this.refs.tabs.offsetWidth;
+      var total = tabsEnd.offsetLeft - (tabsStart.offsetLeft + tabsStart.offsetWidth);
 
       if (using * 2 <= total) {   // TODO: ... * 2 is obviously not what it should be
         this.setState({compacted: false});
@@ -2473,7 +2824,6 @@ var Tab = React.createClass({
   }
 
 });
-
 
 var ToggleButton = React.createClass({
   displayName: "ToggleButton",

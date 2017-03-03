@@ -1,35 +1,63 @@
-
 var FloatingPanel = React.createClass({
+  MIN_WIDTH: 100,
+  MIN_HEIGHT: 100,
+
   displayName: "FloatingPanel",
   mixins: [Mixins.PanelWrapper],
+
   propTypes: {
-    left:React.PropTypes.number,
-    top:React.PropTypes.number,
-    width:React.PropTypes.number,
-    style:React.PropTypes.object,
-    onClick:React.PropTypes.func,
+    buttons: React.PropTypes.array,
+    height: React.PropTypes.number,
+    isFullscreen: React.PropTypes.bool,
+    left: React.PropTypes.number,
+    onClick: React.PropTypes.func,
+    style: React.PropTypes.object,
+    title: React.PropTypes.string,
+    top: React.PropTypes.number,
+    width: React.PropTypes.number,
   },
 
   getDefaultProps: function () {
     return {
-      "left": 0,
-      "top": 0,
-      "width": 420,
-      "style": {}
+      height: 500,
+      isFullscreen: false,
+      left: 0,
+      onClick: null,
+      style: {},
+      top: 0,
+      width: 420,
     };
   },
 
   getInitialState: function () {
-    this.skipUpdate = false;
+    this.wrapperRef = null;
+
+    this.tempLeft = 0;
+    this.tempTop = 0;
+    this.tempWidth = 0;
+    this.tempHeight = 0;
+
     return {
-      left: parseInt(this.props.left),
       top: parseInt(this.props.top),
-      width: parseInt(this.props.width)
+      left: parseInt(this.props.left),
+      width: parseInt(this.props.width),
+      height: parseInt(this.props.height),
+      floating: true,
+      isDragModeOn: false,
+      isResizeModeOn: false,
     };
   },
 
-  componentWillReceiveProps:function(nextProps) {
-    this.setState({width:nextProps.width});
+  componentWillReceiveProps: function(nextProps) {
+    var width = this.state.width;
+
+    if (nextProps.width !== undefined || nextProps.width !== null) {
+      width = nextProps.width;
+    }
+
+    this.setState({
+      width: width,
+    });
   },
 
   dragStart: function (e) {
@@ -49,24 +77,46 @@ var FloatingPanel = React.createClass({
     } catch (err) { /* Fix for IE */ }
 
     window.addEventListener("dragover", this.dragOver);
+
+    this.tempTop = this.state.top;
+    this.tempLeft = this.state.left;
+
+    var newState = {
+      isDragModeOn: true
+    };
+
+    if (this.props.isFullscreen === true) {
+      newState.floating = false;
+    }
+
+    this.setState(newState);
   },
 
   dragEnd: function() {
     delete this.panelBounds;
     window.removeEventListener("dragover", this.dragOver);
-    if (this.props.onBoundsChange) {
-      var height = ReactDOM.findDOMNode(this).offsetHeight;
-      this.props.onBoundsChange({left:this.state.left, top:this.state.top, width:this.state.width, height:height});
-    }
+
+    this.setState({
+      top: this.tempTop,
+      left: this.tempLeft,
+      floating: true,
+      isDragModeOn: false
+    });
   },
 
   dragOver: function(e) {
     if (this.panelBounds || false) {
-      var left = this.panelBounds.startLeft + (e.pageX - this.panelBounds.startPageX),
-        top = this.panelBounds.startTop + (e.pageY - this.panelBounds.startPageY);
-      this.skipUpdate = true;
-      this.setState({ left: left, top: top });
+      this.tempLeft = this.panelBounds.startLeft + (e.pageX - this.panelBounds.startPageX);
+      this.tempTop = this.panelBounds.startTop + (e.pageY - this.panelBounds.startPageY);
+
+      if (this.wrapperRef !== null) {
+        Object.assign(this.wrapperRef.style, this.getTransform(this.tempLeft, this.tempTop));
+      }
     }
+  },
+
+  shouldComponentUpdate: function () {
+    return (false === (this.state.isDragModeOn || this.state.isResizeModeOn));
   },
 
   handleMouseClick: function (e) {
@@ -75,41 +125,117 @@ var FloatingPanel = React.createClass({
     }
   },
 
-  render: function() {
-    var transform = "translate3d(" + Utils.pixelsOf(this.state.left) + ", " + Utils.pixelsOf(this.state.top) + ", 0)",
-      wrapperStyle = update({
-        WebkitTransform: transform,
-        MozTransform: transform,
-        msTransform: transform,
-        transform: transform,
-        width: Utils.pixelsOf(this.state.width),
-        position: "absolute"
-      }, {$merge: this.props.style});
-
-    if (!this.skipUpdate) {
-      var props = update({
-          onDragStart: this.dragStart,
-          onDragEnd: this.dragEnd,
-          floating: true
-        }, {$merge: this.config}),
-        keys = Object.keys(this.props);
-
-      for (var i = keys.length; --i >= 0;) {
-        if (["children", "left", "top", "width", "style"].indexOf(keys[i]) != -1) continue;
-        props[keys[i]] = this.props[keys[i]];
-      }
-      this.inner = (
-        React.createElement(ReactPanel, props,
-          this.props.children
-        )
-      );
-    } else {
-      this.skipUpdate = false;
+  handleMouseDown: function() {
+    if (this.props.isFullscreen === true) {
+      return;
     }
 
-    return React.createElement("div", {style:wrapperStyle, onClick:this.handleMouseClick}, this.inner);
-  }
+    var mouseMoveEventListener = function(e) {
+      if (this.wrapperRef !== null) {
+        if (this.tempWidth + e.movementX < this.MIN_WIDTH || this.tempHeight + e.movementY < this.MIN_HEIGHT) {
+          return;
+        }
 
+        this.tempWidth  += e.movementX;
+        this.tempHeight += e.movementY;
+
+        this.wrapperRef.style.width  = Utils.pixelsOf(this.tempWidth);
+        this.wrapperRef.style.height = Utils.pixelsOf(this.tempHeight);
+      }
+    }.bind(this);
+
+    var mouseUpEventListener = function() {
+      document.removeEventListener("mouseup", mouseUpEventListener);
+      document.removeEventListener("mousemove", mouseMoveEventListener);
+
+      this.setState({
+        width: this.tempWidth,
+        height: this.tempHeight,
+        isResizeModeOn: false,
+      });
+
+    }.bind(this);
+
+    document.addEventListener("mouseup", mouseUpEventListener);
+    document.addEventListener("mousemove", mouseMoveEventListener);
+
+    this.tempWidth = this.state.width;
+    this.tempHeight = this.state.height;
+
+    this.setState({
+      isResizeModeOn: true
+    });
+  },
+
+  getTransform: function (left, top) {
+    if (this.props.isFullscreen === true) {
+      left = 0;
+      top = 0;
+    }
+
+    var transform = "translate3d(" + Utils.pixelsOf(left) + ", " + Utils.pixelsOf(top)  + ", 0)";
+
+    return {
+      WebkitTransform: transform,
+      MozTransform: transform,
+      msTransform: transform,
+      transform: transform,
+    };
+  },
+
+  render: function() {
+    var inner = (React.createElement(ReactPanel, Object.assign({}, {
+      key: "key0",
+      floating: true,
+      onDragStart: this.dragStart,
+      onDragEnd: this.dragEnd,
+      title: this.props.title,
+      icon: this.props.icon,
+      buttons: this.props.buttons,
+    }, this.config), this.props.children));
+
+    var corner = React.createElement("div", {
+      key: "key1",
+      onMouseDown: this.handleMouseDown,
+      style: {
+        position: "absolute",
+        right: "0",
+        bottom: "-8px",
+        cursor: "se-resize",
+        border: "10px solid #00bcd4",
+        borderLeft: "10px solid transparent",
+        borderTop: "10px solid transparent",
+      },
+    });
+
+    var fullscreenStyle = {};
+    if (this.props.isFullscreen === true) {
+      fullscreenStyle = {
+        width: "100%",
+        height: "100%"
+      };
+    }
+
+    return React.createElement("div", {
+      ref: function (reference) {
+        this.wrapperRef = reference;
+      }.bind(this),
+
+      style: Object.assign({}, {
+        position: "absolute",
+        width: Utils.pixelsOf(this.state.width),
+        height: Utils.pixelsOf(this.state.height),
+        minWidth: Utils.pixelsOf(this.MIN_WIDTH),
+        minHeight: Utils.pixelsOf(this.MIN_HEIGHT),
+      },
+
+      this.props.style,
+      this.getTransform(this.state.left, this.state.top),
+      fullscreenStyle),
+
+      onClick: this.handleMouseClick,
+    }, [ inner, corner ]);
+  }
 });
 
 var Panel = React.createClass({
@@ -117,13 +243,14 @@ var Panel = React.createClass({
   mixins: [Mixins.PanelWrapper],
 
   render: function() {
-    var props = update({}, {$merge: this.config}),
-      keys = Object.keys(this.props);
+    var props = update({}, {$merge: this.config});
+    var keys = Object.keys(this.props);
 
     for (var i = keys.length; --i >= 0;) {
       if (["children"].indexOf(keys[i]) != -1) continue;
       props[keys[i]] = this.props[keys[i]];
     }
+
     return React.createElement(ReactPanel, props,
         this.props.children
     );
@@ -134,6 +261,13 @@ var Panel = React.createClass({
 var ReactPanel = React.createClass({
   displayName: "ReactPanel",
   mixins: [Mixins.Styleable, Mixins.Transitions],
+
+  propTypes: {
+    dragAndDropHandler: React.PropTypes.oneOfType([
+      React.PropTypes.object,
+      React.PropTypes.bool
+    ])
+  },
 
   getDefaultProps: function () {
     return {
@@ -147,13 +281,6 @@ var ReactPanel = React.createClass({
       "buttons": [],
       "leftButtons": []
     };
-  },
-
-  propTypes: {
-    dragAndDropHandler: React.PropTypes.oneOfType([
-      React.PropTypes.object,
-      React.PropTypes.bool
-    ])
   },
 
   getInitialState: function () {
@@ -179,10 +306,10 @@ var ReactPanel = React.createClass({
 
   componentDidMount: function () {
     if (this.props.autocompact) {
-      var tabsStart = this.refs["tabs-start"],
-        tabsEnd = this.refs["tabs-end"],
-        using = this.refs.tabs.offsetWidth,
-        total = tabsEnd.offsetLeft - (tabsStart.offsetLeft + tabsStart.offsetWidth);
+      var tabsStart = this.refs["tabs-start"];
+      var tabsEnd = this.refs["tabs-end"];
+      var using = this.refs.tabs.offsetWidth;
+      var total = tabsEnd.offsetLeft - (tabsStart.offsetLeft + tabsStart.offsetWidth);
 
       if (using * 2 <= total) {   // TODO: ... * 2 is obviously not what it should be
         this.setState({compacted: false});

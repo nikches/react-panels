@@ -1,63 +1,32 @@
-var flexboxStyle = function (opts, skin) {
-  var colors,
-    isSafari = /Safari/.test(window.navigator.userAgent) && /Apple Computer/.test(window.navigator.vendor);
-  skin = skin || opts.skin;
-
-  switch (skin) {
-    case "fiery":
-      colors = {
-        tabColor: "#b0b0b0",
-        tabIconColor: "#616161",
-        activeTabColor: "#f72121",
-        tabTextShadow: "#000000",
-        activeTabTextShadow: "#000000",
-        titleTextShadow: "#a6a6a6",
-        iconTextShadow: "#000000",
-        iconColor: "#ffffff",
-        titleColor: "#ffffff",
-        buttonBackgroundColor: "#202020",
-        hoverButtonBackgroundColor: "#342828",
-        activeButtonBackgroundColor: "#4d2c2c",
-        buttonColor: "#eaeaea",
-        hoverButtonColor: "#ffffff",
-        activeButtonColor: "#f72121",
-        buttonTextShadow: "#7F7F7F",
-        tabBackgroundColor: "#202020",
-        activeTabBackgroundColor: "#2e2e2e",
-        hoverTabBackgroundColor: "#342828",
-        toolbarBackgroundColor: "#4d2c2c",
-        contentBackgroundColor: "#3e3e3e",
-        footerBackgroundColor: "#4e4e4e"
-      };
-      break;
-
-    default:
-      colors = {
-        tabColor: "#b0b0b0",
-        tabIconColor: "#616161",
-        activeTabColor: "#ffffff",
-        tabTextShadow: "#000000",
-        activeTabTextShadow: "#7F7F7F",
-        titleTextShadow: "#a6a6a6",
-        iconTextShadow: "#a6a6a6",
-        iconColor: "#ffffff",
-        titleColor: "#ffffff",
-        buttonBackgroundColor: "#202020",
-        hoverButtonBackgroundColor: "#2a2a2a",
-        activeButtonBackgroundColor: "#4e4e4e",
-        buttonColor: "#eaeaea",
-        hoverButtonColor: "#ffffff",
-        activeButtonColor: "#ffffff",
-        buttonTextShadow: "#7F7F7F",
-        tabBackgroundColor: "#202020",
-        activeTabBackgroundColor: "#2e2e2e",
-        hoverTabBackgroundColor: "#2a2a2a",
-        toolbarBackgroundColor: "#4e4e4e",
-        contentBackgroundColor: "#3e3e3e",
-        footerBackgroundColor: "#4e4e4e"
-      };
-      break;
-  }
+var materialUiStyle = function (opts) {
+  var isSafari = /Safari/.test(window.navigator.userAgent) && /Apple Computer/.test(window.navigator.vendor);
+  var colors = {
+    activeButtonBackgroundColor: "#00bcd4",
+    activeButtonColor: "#f72121",
+    activeTabBackgroundColor: "#00bcd4",
+    activeTabColor: "#ffffff",
+    activeTabTextShadow: "initial",
+    activeTabUnderlineColor: "#ff5722",
+    buttonBackgroundColor: "#00bcd4",
+    buttonColor: "#eaeaea",
+    buttonTextShadow: "initial",
+    contentBackgroundColor: "#ffffff",
+    footerBackgroundColor: "#ffffff",
+    hoverButtonBackgroundColor: "#00bcd4",
+    hoverButtonColor: "#ffffff",
+    hoverTabBackgroundColor: "#00bcd4",
+    panelBackgroundColor: "#00bcd4",
+    iconColor: "#ffffff",
+    iconTextShadow: "initial",
+    tabBackgroundColor: "#00bcd4",
+    tabColor: "#ffffff",
+    tabIconColor: "#616161",
+    tabTextShadow: "initial",
+    tabUnderlineColor: "#00bcd4",
+    titleColor: "#ffffff",
+    titleTextShadow: "initial",
+    toolbarBackgroundColor: "#00bcd4",
+  };
 
   return {
     PanelWrapper: {
@@ -67,14 +36,20 @@ var flexboxStyle = function (opts, skin) {
     },
     Panel: {
       style: {
-        backgroundColor: "black",
-        padding: "1px 1px 0 0"
+        backgroundColor: colors.panelBackgroundColor,
+        padding: "4px",
+        boxShadow: "rgba(0, 0, 0, 0.2) 0px 14px 45px, rgba(0, 0, 0, 0.2) 0px 10px 18px",
+        position: "relative",
+        boxSizing: "content-box"
       },
       header: {
         style: {
-          backgroundColor: "transparent",
+          backgroundColor: colors.panelBackgroundColor,
           display: isSafari ? "-webkit-flex" : "flex",
-          minWidth: "100%"
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
         }
       },
       tabsStart: {
@@ -93,7 +68,8 @@ var flexboxStyle = function (opts, skin) {
           WebkitFlex: "1",
           flex: 1,
           display: isSafari ? "-webkit-flex" : "flex",
-          overflow: "hidden"
+          overflow: "hidden",
+          minWidth: "initial"
         }
       },
       icon: {
@@ -117,9 +93,11 @@ var flexboxStyle = function (opts, skin) {
       group: {
         style: {
           padding: 0,
-          display: "inline-block",
+          margin: 0,
+          display: isSafari ? "-webkit-flex" : "flex",
+          flexDirection: "flex-end",
+          overflow: "hidden",
           height: "100%",
-          margin: 0
         }
       },
       body: {
@@ -131,13 +109,18 @@ var flexboxStyle = function (opts, skin) {
     TabButton: {
       style: {
         backgroundColor: colors.tabBackgroundColor,
-        height: opts.headerHeight - 1,
-        margin: "0 0 1px 1px",
-        position: "inherit",
+        borderColor: colors.tabUnderlineColor,
+        borderStyle: "solid",
+        borderWidth: "0 0 2px 0",
+        flex: "1 0 0",
+        flexShrink: 0,
         float: "none",
+        height: "auto",
+        margin: 0,
         overflow: "hidden",
-        WebkitFlex: "1",
-        flex: "1 0 0px"
+        position: "inherit",
+        textTransform: "uppercase",
+        WebkitFlex: 1,
       },
       state: {
         hover: {
@@ -149,6 +132,7 @@ var flexboxStyle = function (opts, skin) {
       mods: {
         active: {
           style: {
+            borderColor: colors.activeTabUnderlineColor,
             backgroundColor: colors.activeTabBackgroundColor
           },
           state: {
@@ -165,7 +149,7 @@ var flexboxStyle = function (opts, skin) {
               title: {
                 style: {
                   color: colors.activeTabColor,
-                  textShadow: "1px 1px 1px " + colors.activeTabTextShadow
+                  textShadow: "1px 1px 1px " + colors.activeTabTextShadow,
                 }
               }
             }
@@ -192,14 +176,13 @@ var flexboxStyle = function (opts, skin) {
       },
       title: {
         style: {
+          textTransform: "uppercase",
           color: colors.tabColor,
           textShadow: "1px 1px 1px " + colors.tabTextShadow
         }
       },
       box: {
         style: {
-          marginRight: 0,
-          maxWidth: "calc(100% - " + Utils.pixelsOf(opts.headerHeight) + ")"
         }
       }
     },
@@ -216,7 +199,6 @@ var flexboxStyle = function (opts, skin) {
         children: {
           style: {
             padding: "10px",
-            lineHeight: Utils.pixelsOf(opts.headerHeight),
             position: "relative",
             marginTop: "1px",
             backgroundColor: colors.toolbarBackgroundColor
@@ -226,7 +208,10 @@ var flexboxStyle = function (opts, skin) {
       content: {
         style: {
           backgroundColor: colors.contentBackgroundColor,
-          marginBottom: "1px"
+          marginBottom: "1px",
+          paddingTop: opts.headerHeight - 4,
+          height: "100%",
+          boxSizing: "border-box",
         }
       },
       footer: {
@@ -238,16 +223,19 @@ var flexboxStyle = function (opts, skin) {
     },
     Button: {
       style: {
-        height: Utils.pixelsOf(opts.headerHeight - 1),
         backgroundColor: colors.buttonBackgroundColor,
-        marginLeft: "1px"
+        marginLeft: "1px",
+        float: "none",
+        flexShrink: 0,
       },
+
       children: {
         style: {
           color: colors.buttonColor,
           textShadow: "1px 1px 1px " + colors.buttonTextShadow
         }
       },
+
       state: {
         hover: {
           style: {

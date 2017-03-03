@@ -1,4 +1,3 @@
-
 var flexbox2Skin = function (skin) {
   switch (skin || "") {
   default:

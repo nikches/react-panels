@@ -105,7 +105,6 @@ var buildStyle = function (opts) {
           display: "block",
           listStyle: "none",
           padding: "0 4px",
-          height: opts.headerHeight,
           fontSize: "0.95em",
           cursor: "pointer",
           textAlign: "center"
@@ -265,7 +264,8 @@ var buildStyle = function (opts) {
     /* THEME: Chemical */
     chemical: chemicalStyle,
     flexbox: flexboxStyle,
-    flexbox2: flexbox2Style
+    flexbox2: flexbox2Style,
+    "material-ui": materialUiStyle,
   };
 
   var theme = (opts.theme != "base") ? styles[opts.theme](opts) : {};

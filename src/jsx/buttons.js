@@ -1,4 +1,3 @@
-
 var ToggleButton = React.createClass({
   displayName: "ToggleButton",
   mixins: [Mixins.Button],

@@ -54,6 +54,7 @@ module.exports = function(grunt) {
             'src/jsx/styles/themes/flexbox2.js',
             'src/jsx/styles/themes/flexbox.js',
             'src/jsx/styles/themes/chemical.js',
+            'src/jsx/styles/themes/material-ui.js',
             'src/jsx/styles/base.js',
             'src/jsx/utils.js',
             'src/jsx/mixins.js',
