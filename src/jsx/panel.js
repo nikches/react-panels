@@ -9,6 +9,7 @@ var FloatingPanel = React.createClass({
     buttons: React.PropTypes.array,
     height: React.PropTypes.number,
     isFullscreen: React.PropTypes.bool,
+    isResizable: React.PropTypes.bool,
     left: React.PropTypes.number,
     onClick: React.PropTypes.func,
     style: React.PropTypes.object,
@@ -21,6 +22,7 @@ var FloatingPanel = React.createClass({
     return {
       height: 500,
       isFullscreen: false,
+      isResizable: false,
       left: 0,
       onClick: null,
       style: {},
@@ -51,7 +53,7 @@ var FloatingPanel = React.createClass({
   componentWillReceiveProps: function(nextProps) {
     var width = this.state.width;
 
-    if (nextProps.width !== undefined || nextProps.width !== null) {
+    if (nextProps.width !== undefined && nextProps.width !== null) {
       width = nextProps.width;
     }
 
@@ -194,19 +196,22 @@ var FloatingPanel = React.createClass({
       buttons: this.props.buttons,
     }, this.config), this.props.children));
 
-    var corner = React.createElement("div", {
-      key: "key1",
-      onMouseDown: this.handleMouseDown,
-      style: {
-        position: "absolute",
-        right: "0",
-        bottom: "-8px",
-        cursor: "se-resize",
-        border: "10px solid #00bcd4",
-        borderLeft: "10px solid transparent",
-        borderTop: "10px solid transparent",
-      },
-    });
+    var corner = null;
+    if (this.props.isResizable === true) {
+      corner = React.createElement("div", {
+        key: "key1",
+        onMouseDown: this.handleMouseDown,
+        style: {
+          position: "absolute",
+          right: "0",
+          bottom: "-8px",
+          cursor: "se-resize",
+          border: "10px solid #00bcd4",
+          borderLeft: "10px solid transparent",
+          borderTop: "10px solid transparent",
+        },
+      });
+    }
 
     var fullscreenStyle = {};
     if (this.props.isFullscreen === true) {
@@ -222,7 +227,7 @@ var FloatingPanel = React.createClass({
       }.bind(this),
 
       style: Object.assign({}, {
-        position: "absolute",
+        position: "fixed",
         width: Utils.pixelsOf(this.state.width),
         height: Utils.pixelsOf(this.state.height),
         minWidth: Utils.pixelsOf(this.MIN_WIDTH),
