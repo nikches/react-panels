@@ -16,18 +16,20 @@ var FloatingPanel = React.createClass({
     title: React.PropTypes.string,
     top: React.PropTypes.number,
     width: React.PropTypes.number,
+    zIndex: React.PropTypes.number,
   },
 
   getDefaultProps: function () {
     return {
       height: 500,
       isFullscreen: false,
-      isResizable: false,
+      isResizable: true,
       left: 0,
       onClick: null,
       style: {},
       top: 0,
       width: 420,
+      zIndex: 2000
     };
   },
 
@@ -39,6 +41,8 @@ var FloatingPanel = React.createClass({
     this.tempWidth = 0;
     this.tempHeight = 0;
 
+    this.documentMouseDownHandler = null;
+
     return {
       top: parseInt(this.props.top),
       left: parseInt(this.props.left),
@@ -47,7 +51,40 @@ var FloatingPanel = React.createClass({
       floating: true,
       isDragModeOn: false,
       isResizeModeOn: false,
+      isFocused: false,
     };
+  },
+
+  componentDidMount: function() {
+    this.documentMouseDownHandler = function(event) {
+      if (this.wrapperRef === null) {
+        return;
+      }
+
+      var target = event.target;
+      var isWrapperFound = false;
+
+      while (target) {
+        if (target === this.wrapperRef) {
+          isWrapperFound = true;
+          break;
+        }
+
+        target = target.parentNode;
+      }
+
+      if (isWrapperFound === false) {
+        this.setState({
+          isFocused: false,
+        });
+      }
+    }.bind(this);
+
+    document.addEventListener("mousedown", this.documentMouseDownHandler);
+  },
+
+  componentWillUnmount: function() {
+    document.removeEventListener("mousedown", this.documentMouseDownHandler);
   },
 
   componentWillReceiveProps: function(nextProps) {
@@ -185,6 +222,12 @@ var FloatingPanel = React.createClass({
     };
   },
 
+  handleWrapperMouseDown: function() {
+    this.setState({
+      isFocused: true,
+    });
+  },
+
   render: function() {
     var inner = (React.createElement(ReactPanel, Object.assign({}, {
       key: "key0",
@@ -203,8 +246,8 @@ var FloatingPanel = React.createClass({
         onMouseDown: this.handleMouseDown,
         style: {
           position: "absolute",
-          right: "0",
-          bottom: "-8px",
+          right: 0,
+          bottom: 0,
           cursor: "se-resize",
           border: "10px solid #00bcd4",
           borderLeft: "10px solid transparent",
@@ -228,6 +271,9 @@ var FloatingPanel = React.createClass({
 
       style: Object.assign({}, {
         position: "fixed",
+        top: 0,
+        left: 0,
+        zIndex: this.props.zIndex + (this.state.isFocused ? 10 : 0),
         width: Utils.pixelsOf(this.state.width),
         height: Utils.pixelsOf(this.state.height),
         minWidth: Utils.pixelsOf(this.MIN_WIDTH),
@@ -239,6 +285,7 @@ var FloatingPanel = React.createClass({
       fullscreenStyle),
 
       onClick: this.handleMouseClick,
+      onMouseDown: this.handleWrapperMouseDown
     }, [ inner, corner ]);
   }
 });

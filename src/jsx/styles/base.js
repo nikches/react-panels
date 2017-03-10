@@ -17,7 +17,8 @@ var buildStyle = function (opts) {
   var styles = {
     base: {
       PanelWrapper: {
-        style: {},
+        style: {
+        },
         config: {
           autocompact: true
         }

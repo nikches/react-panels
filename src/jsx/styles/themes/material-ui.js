@@ -37,10 +37,10 @@ var materialUiStyle = function (opts) {
     Panel: {
       style: {
         backgroundColor: colors.panelBackgroundColor,
-        padding: "4px",
+        border: "4px solid " + colors.panelBackgroundColor,
         boxShadow: "rgba(0, 0, 0, 0.2) 0px 14px 45px, rgba(0, 0, 0, 0.2) 0px 10px 18px",
         position: "relative",
-        boxSizing: "content-box"
+        boxSizing: "border-box"
       },
       header: {
         style: {
@@ -102,7 +102,8 @@ var materialUiStyle = function (opts) {
       },
       body: {
         style: {
-          marginLeft: "1px"
+          marginLeft: 0,
+          height: "100%",
         }
       }
     },
@@ -209,7 +210,7 @@ var materialUiStyle = function (opts) {
         style: {
           backgroundColor: colors.contentBackgroundColor,
           marginBottom: "1px",
-          paddingTop: opts.headerHeight - 4,
+          paddingTop: opts.headerHeight,
           height: "100%",
           boxSizing: "border-box",
         }
