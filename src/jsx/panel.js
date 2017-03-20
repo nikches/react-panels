@@ -8,8 +8,8 @@ var FloatingPanel = React.createClass({
   propTypes: {
     buttons: React.PropTypes.array,
     height: React.PropTypes.number,
-    isFullscreen: React.PropTypes.bool,
-    isResizable: React.PropTypes.bool,
+    fullscreen: React.PropTypes.bool,
+    resizable: React.PropTypes.bool,
     left: React.PropTypes.number,
     onClick: React.PropTypes.func,
     style: React.PropTypes.object,
@@ -21,14 +21,14 @@ var FloatingPanel = React.createClass({
 
   getDefaultProps: function () {
     return {
-      height: 500,
-      isFullscreen: false,
-      isResizable: true,
-      left: 0,
+      fullscreen: false,
+      resizable: true,
+      top: null,
+      left: null,
       onClick: null,
       style: {},
-      top: 0,
       width: 420,
+      height: 500,
       zIndex: 2000
     };
   },
@@ -43,15 +43,39 @@ var FloatingPanel = React.createClass({
 
     this.documentMouseDownHandler = null;
 
+    var top = 0;
+    var left = 0;
+
+    if (this.props.top === null) {
+      var windowHeight = window.innerHeight
+      || document.documentElement.clientHeight
+      || document.body.clientHeight;
+
+      top = (windowHeight / 2) - (this.props.height / 2);
+    } else {
+      top = this.props.top;
+    }
+
+    if (this.props.left === null) {
+      var windowWidth = window.innerWidth
+      || document.documentElement.clientWidth
+      || document.body.clientWidth;
+
+      left = (windowWidth / 2) - (this.props.width / 2);
+    } else {
+      left = this.props.left;
+    }
+
     return {
-      top: parseInt(this.props.top),
-      left: parseInt(this.props.left),
+      top: top,
+      left: left,
       width: parseInt(this.props.width),
       height: parseInt(this.props.height),
+
       floating: true,
-      isDragModeOn: false,
-      isResizeModeOn: false,
-      isFocused: false,
+      dragModeOn: false,
+      resizeModeOn: false,
+      focused: false,
     };
   },
 
@@ -62,20 +86,20 @@ var FloatingPanel = React.createClass({
       }
 
       var target = event.target;
-      var isWrapperFound = false;
+      var wrapperFound = false;
 
       while (target) {
         if (target === this.wrapperRef) {
-          isWrapperFound = true;
+          wrapperFound = true;
           break;
         }
 
         target = target.parentNode;
       }
 
-      if (isWrapperFound === false) {
+      if (wrapperFound === false) {
         this.setState({
-          isFocused: false,
+          focused: false,
         });
       }
     }.bind(this);
@@ -121,10 +145,10 @@ var FloatingPanel = React.createClass({
     this.tempLeft = this.state.left;
 
     var newState = {
-      isDragModeOn: true
+      dragModeOn: true
     };
 
-    if (this.props.isFullscreen === true) {
+    if (this.props.fullscreen === true) {
       newState.floating = false;
     }
 
@@ -139,7 +163,7 @@ var FloatingPanel = React.createClass({
       top: this.tempTop,
       left: this.tempLeft,
       floating: true,
-      isDragModeOn: false
+      dragModeOn: false
     });
   },
 
@@ -155,7 +179,7 @@ var FloatingPanel = React.createClass({
   },
 
   shouldComponentUpdate: function () {
-    return (false === (this.state.isDragModeOn || this.state.isResizeModeOn));
+    return (false === (this.state.dragModeOn || this.state.resizeModeOn));
   },
 
   handleMouseClick: function (e) {
@@ -165,7 +189,7 @@ var FloatingPanel = React.createClass({
   },
 
   handleMouseDown: function() {
-    if (this.props.isFullscreen === true) {
+    if (this.props.fullscreen === true) {
       return;
     }
 
@@ -190,7 +214,7 @@ var FloatingPanel = React.createClass({
       this.setState({
         width: this.tempWidth,
         height: this.tempHeight,
-        isResizeModeOn: false,
+        resizeModeOn: false,
       });
 
     }.bind(this);
@@ -202,12 +226,12 @@ var FloatingPanel = React.createClass({
     this.tempHeight = this.state.height;
 
     this.setState({
-      isResizeModeOn: true
+      resizeModeOn: true
     });
   },
 
   getTransform: function (left, top) {
-    if (this.props.isFullscreen === true) {
+    if (this.props.fullscreen === true) {
       left = 0;
       top = 0;
     }
@@ -224,7 +248,7 @@ var FloatingPanel = React.createClass({
 
   handleWrapperMouseDown: function() {
     this.setState({
-      isFocused: true,
+      focused: true,
     });
   },
 
@@ -240,7 +264,7 @@ var FloatingPanel = React.createClass({
     }, this.config), this.props.children));
 
     var corner = null;
-    if (this.props.isResizable === true) {
+    if (this.props.resizable === true) {
       corner = React.createElement("div", {
         key: "key1",
         onMouseDown: this.handleMouseDown,
@@ -257,7 +281,7 @@ var FloatingPanel = React.createClass({
     }
 
     var fullscreenStyle = {};
-    if (this.props.isFullscreen === true) {
+    if (this.props.fullscreen === true) {
       fullscreenStyle = {
         width: "100%",
         height: "100%"
@@ -273,7 +297,7 @@ var FloatingPanel = React.createClass({
         position: "fixed",
         top: 0,
         left: 0,
-        zIndex: this.props.zIndex + (this.state.isFocused ? 10 : 0),
+        zIndex: this.props.zIndex + (this.state.focused ? 10 : 0),
         width: Utils.pixelsOf(this.state.width),
         height: Utils.pixelsOf(this.state.height),
         minWidth: Utils.pixelsOf(this.MIN_WIDTH),
