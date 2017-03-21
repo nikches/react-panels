@@ -935,7 +935,7 @@ var materialUiStyle = function (opts) {
           margin: 0,
           display: isSafari ? "-webkit-flex" : "flex",
           flexDirection: "flex-end",
-          overflow: "hidden",
+          overflow: "visible",
           height: "100%",
         }
       },
@@ -1931,7 +1931,6 @@ var FloatingPanel = React.createClass({
 
   getDefaultProps: function () {
     return {
-      height: 500,
       fullscreen: false,
       resizable: true,
       top: null,
@@ -1939,6 +1938,7 @@ var FloatingPanel = React.createClass({
       onClick: null,
       style: {},
       width: 420,
+      height: 500,
       zIndex: 2000
     };
   },

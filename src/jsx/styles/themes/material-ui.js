@@ -96,7 +96,7 @@ var materialUiStyle = function (opts) {
           margin: 0,
           display: isSafari ? "-webkit-flex" : "flex",
           flexDirection: "flex-end",
-          overflow: "hidden",
+          overflow: "visible",
           height: "100%",
         }
       },
