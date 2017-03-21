@@ -111,18 +111,6 @@ var FloatingPanel = React.createClass({
     document.removeEventListener("mousedown", this.documentMouseDownHandler);
   },
 
-  componentWillReceiveProps: function(nextProps) {
-    var width = this.state.width;
-
-    if (nextProps.width !== undefined && nextProps.width !== null) {
-      width = nextProps.width;
-    }
-
-    this.setState({
-      width: width,
-    });
-  },
-
   dragStart: function (e) {
     this.panelBounds = {
       startLeft: this.state.left,
