@@ -380,17 +380,43 @@ var Tab = React.createClass({
       sheet = {};
 
     this.mounted = (this.mounted || false) || this.props.automount || active;
-    this.hasToolbar=this.hasFooter=false;
+    this.hasToolbar = this.hasFooter = false;
+
+    // Check if tab has Footer
+    var tabHasFooter = false;
+    for (var i = numChilds - 1; i >=0; i--) {
+      var child = this.props.children[i];
+
+      if (React.isValidElement(child) === false) {
+        continue;
+      }
+
+      if (typeof child.props.panelComponentType === "undefined") {
+        continue;
+      }
+
+      if (String(child.props.panelComponentType) !== "Footer") {
+        continue;
+      }
+
+      tabHasFooter = true;
+      break;
+    }
 
     var innerContent = (this.mounted) ? React.Children.map(self.props.children, function(child, i) {
+      if (child === null) {
+        return null;
+      }
+
       var type = (i == 0 && numChilds >= 2) ? 0 : 1;   // 0: Toolbar, 1: Content, 2: Footer
       if (React.isValidElement(child) && (typeof child.props.panelComponentType !== "undefined")) {
         switch (String(child.props.panelComponentType)) {
         case "Toolbar": type = 0; break;
         case "Content": type = 1; break;
-        case "Footer": type = 2; break;
+        case "Footer":  type = 2; break;
         }
       }
+
       if (i == 0) {
         if (type == 0) {
           this.hasToolbar = true;
@@ -398,6 +424,7 @@ var Tab = React.createClass({
         }
         sheet = self.getSheet("Tab", mods);
       }
+
       if (i == self.props.children.length-1 && type == 2) {
         this.hasFooter = true;
         if (self.props.showFooter) {
@@ -405,6 +432,7 @@ var Tab = React.createClass({
           sheet = self.getSheet("Tab", mods);
         }
       }
+
       switch (type) {
       case 0:
         return (self.props.showToolbar) ? (
@@ -416,9 +444,10 @@ var Tab = React.createClass({
         ) : null;
       case 1:
         var contentStyle = update({
-          maxHeight : this.props.maxContentHeight || "none",
-          overflowX :"hidden",
-          overflowY : this.props.maxContentHeight?"auto":"hidden"
+          maxHeight: this.props.maxContentHeight || "none",
+          overflowX: "hidden",
+          overflowY: this.props.maxContentHeight ? "auto" : "hidden",
+          paddingBottom: tabHasFooter === true ? sheet.footer.footerHeight : "0",
         }, {$merge: sheet.content.style});
 
         return (
@@ -440,14 +469,20 @@ var Tab = React.createClass({
     }.bind(this)) : null;
 
     return (
-      React.createElement(tp.transitionComponent, Object.assign({}, {component: "div", style: sheet.style,
-        transitionName: tp.transitionName, transitionAppear: tp.transitionAppear && active,
-        transitionEnter: tp.transitionEnter && active, transitionLeave: tp.transitionLeave && active},
-        tp.transitionCustomProps),
+      React.createElement(
+        tp.transitionComponent,
+        Object.assign({}, {
+          component: "div",
+          style: sheet.style,
+          transitionName: tp.transitionName,
+          transitionAppear: tp.transitionAppear && active,
+          transitionEnter: tp.transitionEnter && active,
+          transitionLeave: tp.transitionLeave && active
+        },
+        tp.transitionCustomProps
+        ),
         innerContent
       )
     );
-
   }
-
 });

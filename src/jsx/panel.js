@@ -16,7 +16,7 @@ var FloatingPanel = React.createClass({
     title: React.PropTypes.string,
     top: React.PropTypes.number,
     width: React.PropTypes.number,
-    zIndex: React.PropTypes.number,
+    zIndex: React.PropTypes.number
   },
 
   getDefaultProps: function () {
@@ -109,6 +109,12 @@ var FloatingPanel = React.createClass({
 
   componentWillUnmount: function() {
     document.removeEventListener("mousedown", this.documentMouseDownHandler);
+  },
+
+  enable: function() {
+  },
+
+  disable: function() {
   },
 
   dragStart: function (e) {
@@ -319,7 +325,6 @@ var Panel = React.createClass({
         this.props.children
     );
   }
-
 });
 
 var ReactPanel = React.createClass({
@@ -510,11 +515,13 @@ var ReactPanel = React.createClass({
           this._getGroupedButtons(this.props.leftButtons).map(function (group) {
             return React.createElement("ul", {style: sheet.group.style, key: groupIndex++}, group );
           }),
+
           React.createElement(TabGroup, {
             style: sheet.tabs.style, ref: "tabs", data: tabButtons,
             dragAndDropHandler: this.props.dragAndDropHandler || false,
             transitionProps: transitionProps
           }),
+
           React.createElement("div", {style: sheet.tabsEnd.style, ref: "tabs-end"}),
           this._getGroupedButtons(this.props.rightButtons||this.props.buttons).map(function (group) {
             return React.createElement("ul", {style: sheet.group.style, key: groupIndex++}, group );

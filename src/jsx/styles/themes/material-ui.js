@@ -98,6 +98,7 @@ var materialUiStyle = function (opts) {
           flexDirection: "flex-end",
           overflow: "visible",
           height: "100%",
+          zIndex: 1000,
         }
       },
       body: {
@@ -123,6 +124,7 @@ var materialUiStyle = function (opts) {
         textTransform: "uppercase",
         WebkitFlex: 1,
       },
+
       state: {
         hover: {
           style: {
@@ -130,6 +132,7 @@ var materialUiStyle = function (opts) {
           }
         }
       },
+
       mods: {
         active: {
           style: {
@@ -182,6 +185,7 @@ var materialUiStyle = function (opts) {
           textShadow: "1px 1px 1px " + colors.tabTextShadow
         }
       },
+
       box: {
         style: {
         }
@@ -197,6 +201,7 @@ var materialUiStyle = function (opts) {
           position: "relative",
           top: "-1px"
         },
+
         children: {
           style: {
             padding: "10px",
@@ -206,57 +211,77 @@ var materialUiStyle = function (opts) {
           }
         }
       },
+
       content: {
         style: {
           backgroundColor: colors.contentBackgroundColor,
-          marginBottom: "1px",
           paddingTop: opts.headerHeight,
           height: "100%",
           boxSizing: "border-box",
-        }
-      },
-      footer: {
-        style: {
-          backgroundColor: colors.footerBackgroundColor,
-          marginBottom: "1px"
-        }
-      }
-    },
-    Button: {
-      style: {
-        backgroundColor: colors.buttonBackgroundColor,
-        marginLeft: "1px",
-        float: "none",
-        flexShrink: 0,
-      },
+        },
 
-      children: {
-        style: {
-          color: colors.buttonColor,
-          textShadow: "1px 1px 1px " + colors.buttonTextShadow
-        }
-      },
-
-      state: {
-        hover: {
+        children: {
           style: {
-            backgroundColor: colors.hoverButtonBackgroundColor
-          },
-          children: {
-            style: {
-              color: colors.hoverButtonColor
-            }
+            width: "100%",
+            height: "100%",
+            overflow: "auto",
           }
         }
       },
-      mods: {
-        active: {
+
+      footer: {
+        style: {
+          minHeight: "initial",
+          lineHeight: "initial",
+          backgroundColor: colors.footerBackgroundColor,
+          padding: "0 15px",
+          height: "50px",
+          display: "flex",
+          justifyContent: "flex-end",
+          alignItems: "center",
+          marginTop: "-50px",
+          borderTop: "1px solid " + colors.panelBackgroundColor,
+          position: "relative",
+        },
+
+        footerHeight: Utils.pixelsOf(opts.headerHeight)
+      },
+      Button: {
+        style: {
+          backgroundColor: colors.buttonBackgroundColor,
+          marginLeft: "1px",
+          float: "none",
+          flexShrink: 0,
+        },
+
+        children: {
           style: {
-            backgroundColor: colors.activeButtonBackgroundColor
-          },
-          children: {
+            color: colors.buttonColor,
+            textShadow: "1px 1px 1px " + colors.buttonTextShadow
+          }
+        },
+
+        state: {
+          hover: {
             style: {
-              color: colors.activeButtonColor
+              backgroundColor: colors.hoverButtonBackgroundColor
+            },
+            children: {
+              style: {
+                color: colors.hoverButtonColor
+              }
+            }
+          }
+        },
+        mods: {
+          active: {
+            style: {
+              backgroundColor: colors.activeButtonBackgroundColor
+            },
+            children: {
+              style: {
+                color: colors.activeButtonColor
+              }
             }
           }
         }

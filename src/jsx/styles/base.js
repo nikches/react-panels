@@ -1,4 +1,3 @@
-
 var buildStyle = function (opts) {
   opts = opts || {};
   opts = {
@@ -217,7 +216,6 @@ var buildStyle = function (opts) {
           style: {
             minHeight: Utils.pixelsOf(opts.headerHeight),
             lineHeight: Utils.pixelsOf(opts.headerHeight),
-            padding: 0
           },
           children: {
             style: {}
