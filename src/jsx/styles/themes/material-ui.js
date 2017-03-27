@@ -224,7 +224,6 @@ var materialUiStyle = function (opts) {
           style: {
             width: "100%",
             height: "100%",
-            overflow: "auto",
           }
         }
       },

@@ -14,7 +14,12 @@ var Content = React.createClass({
   mixins: [Mixins.Content],
 
   render: function () {
-    return React.createElement("div", {}, this.props.children );
+    return React.createElement("div", {
+      style: {
+        width: "100%",
+        height: "100%",
+      }
+    }, this.props.children );
   }
 
 });
